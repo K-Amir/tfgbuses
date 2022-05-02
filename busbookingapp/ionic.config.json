@@ -1,0 +1,7 @@
+{
+  "name": "busbookingapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
