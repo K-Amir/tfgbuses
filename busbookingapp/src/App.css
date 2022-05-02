@@ -1,0 +1,18 @@
+.tab-button {
+    color: rgb(59, 59, 59);
+    padding: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease-out;
+
+}
+
+.tab-selected ion-icon {
+    background: #596aca;
+    padding: 12px;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.329);
+}
+.tab-bar {
+    padding: 10px 0px;
+}
