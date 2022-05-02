@@ -10,12 +10,8 @@ import React from "react";
 const Profile: React.FC = () => {
   return (
     <IonPage>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+      <IonContent fullscreen color="light">
+        <p>profile page </p>
       </IonContent>
     </IonPage>
   );
