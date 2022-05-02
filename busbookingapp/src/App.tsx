@@ -59,17 +59,25 @@ const App: React.FC = () => (
             <Redirect to="/home" />
           </Route>
         </IonRouterOutlet>
-
-        <IonTabBar className="tab-bar" color="light" slot="bottom">
-          <IonTabButton tab="home" href="/home">
+        {/* color="light" */}
+        <IonTabBar translucent={true} className="tab-bar " slot="bottom">
+          <IonTabButton className="disable-ripple" tab="home" href="/home">
             <IonIcon className="tab-button" icon={home}></IonIcon>
           </IonTabButton>
 
-          <IonTabButton tab="book-history" href="/book-history">
-            <IonIcon className="tab-button" icon={bookmark}></IonIcon>
+          <IonTabButton
+            className="disable-ripple"
+            tab="book-history"
+            href="/book-history"
+          >
+            <IonIcon className="tab-button " icon={bookmark}></IonIcon>
           </IonTabButton>
 
-          <IonTabButton tab="profile" href="/profile">
+          <IonTabButton
+            className="disable-ripple"
+            tab="profile"
+            href="/profile"
+          >
             <IonIcon className="tab-button" icon={person}></IonIcon>
           </IonTabButton>
         </IonTabBar>

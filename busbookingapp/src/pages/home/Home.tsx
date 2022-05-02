@@ -11,13 +11,8 @@ import "./Home.css";
 const Home: React.FC = () => {
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent class="container" fullscreen color="light">
         <h1>test</h1>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
       </IonContent>
     </IonPage>
   );
