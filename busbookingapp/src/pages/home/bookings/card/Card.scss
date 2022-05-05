@@ -1,0 +1,71 @@
+.bus-info {
+  display: flex;
+  padding: 20px;
+  border-bottom: 2px dashed rgb(235, 234, 234);
+  align-items: center;
+}
+
+.destination {
+  display: flex;
+  flex: 4;
+  height: 70px;
+  gap: 20px;
+  font-weight: bold;
+
+  .hours,
+  .symbol,
+  .cities {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .symbol {
+    width: 13px;
+  }
+}
+.price {
+  margin-right: 15px;
+  width: 50px;
+  height: 50px;
+  background: #596aca;
+  display: flex;
+  color: white;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  flex: 1;
+}
+
+.short-info {
+  position: relative;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    .icon {
+      color: #596aca;
+    }
+  }
+  .ticket-cut {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #e7e7e7;
+    top: -8px;
+    border-radius: 1005%;
+  }
+  .ticket-cut.left {
+    left: -7px;
+  }
+  .ticket-cut.right {
+    right: -7px;
+  }
+}
+.card {
+  border-radius: 15px;
+  box-shadow: 0px 0px 30px rgba(49, 49, 49, 0.3);
+}

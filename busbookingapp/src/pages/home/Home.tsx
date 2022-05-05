@@ -1,17 +1,23 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
+import React from "react";
 import SearchBar from "./components/SearchBar";
-
-import "./Home.scss";
 
 const Home: React.FC = () => {
   return (
-    <IonPage>
-      <IonContent color="light" fullscreen>
-        <div className="container">
-          <SearchBar />
+    <IonContent color="light" fullscreen>
+      <div className="container">
+        <div className="user-info">
+          <div className="greentings">
+            <p>Welcome back,</p>
+            <p className="bold-name">Jhon</p>
+          </div>
+          <div className="picture">
+            <img src="https://www.fakepersongenerator.com/Face/male/male20161086391719757.jpg" />
+          </div>
         </div>
-      </IonContent>
-    </IonPage>
+        <SearchBar />
+      </div>
+    </IonContent>
   );
 };
 

@@ -1,0 +1,21 @@
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .icon {
+    font-size: 23px;
+  }
+  .filter-icon {
+    background: #596aca;
+    padding: 7px;
+    border-radius: 10px;
+    color: white;
+  }
+}
+
+.available-bookings {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 25px;
+}
