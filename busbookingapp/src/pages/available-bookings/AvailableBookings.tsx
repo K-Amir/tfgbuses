@@ -1,14 +1,13 @@
 import { IonContent, IonPage } from "@ionic/react";
-import SearchBar from "./components/SearchBar";
 
-import "./Home.scss";
+import "./AvailableBookings.scss";
 
 const Home: React.FC = () => {
   return (
     <IonPage>
       <IonContent color="light" fullscreen>
         <div className="container">
-          <SearchBar />
+          <h1>testing</h1>
         </div>
       </IonContent>
     </IonPage>

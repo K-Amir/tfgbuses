@@ -11,14 +11,8 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/home/Home";
-import {
-  bookmark,
-  home,
-  person,
-  personOutline,
-  triangle,
-} from "ionicons/icons";
-import "./App.css";
+import { bookmark, home, person } from "ionicons/icons";
+import "./App.scss";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -39,6 +33,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import Profile from "./pages/profile/Profile";
+import Bookings from "./pages/bookings/Bookings";
 
 setupIonicReact();
 
@@ -55,6 +50,10 @@ const App: React.FC = () => (
             <Profile />
           </Route>
 
+          <Route exact path="/bookings">
+            <Bookings />
+          </Route>
+
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
@@ -67,8 +66,8 @@ const App: React.FC = () => (
 
           <IonTabButton
             className="disable-ripple"
-            tab="book-history"
-            href="/book-history"
+            tab="bookings"
+            href="/bookings"
           >
             <IonIcon className="tab-button " icon={bookmark}></IonIcon>
           </IonTabButton>

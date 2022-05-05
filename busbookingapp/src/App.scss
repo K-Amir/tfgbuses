@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.tab-button {
+  color: rgb(59, 59, 59);
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.3s ease-out;
+  padding: 12px;
+}
+
+.tab-selected ion-icon {
+  background: #596aca;
+  border-radius: 50%;
+  color: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.529);
+}
+.tab-bar {
+  border: none;
+  background: white;
+  ion-icon {
+    font-size: 17px;
+  }
+}
+.disable-ripple {
+  --ripple-color: transparent;
+}
+.disable-ripple:hover {
+  background: unset !important;
+}

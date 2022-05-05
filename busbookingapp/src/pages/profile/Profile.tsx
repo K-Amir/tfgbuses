@@ -1,17 +1,14 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import React from "react";
+import "./Profile.scss";
 
 const Profile: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen color="light">
-        <p>profile page </p>
+        <div className="container">
+          <h1>test</h1>
+        </div>
       </IonContent>
     </IonPage>
   );
