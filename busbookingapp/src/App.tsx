@@ -58,7 +58,7 @@ const App: React.FC = () => (
             <Redirect to="/home" />
           </Route>
         </IonRouterOutlet>
-        {/* color="light" */}
+
         <IonTabBar translucent={true} className="tab-bar " slot="bottom">
           <IonTabButton className="disable-ripple" tab="home" href="/home">
             <IonIcon className="tab-button" icon={home}></IonIcon>

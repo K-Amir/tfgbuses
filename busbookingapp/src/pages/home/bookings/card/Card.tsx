@@ -34,6 +34,7 @@ const Card: React.FC = () => {
           <IonIcon className="icon" icon={timeOutline}></IonIcon>Duration 4
           hours
         </div>
+        <div className="buy-ticket">Buy now</div>
       </div>
     </div>
   );

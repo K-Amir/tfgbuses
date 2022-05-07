@@ -1,5 +1,6 @@
-import { IonContent, useIonRouter } from "@ionic/react";
-import React, { useState } from "react";
+import { IonContent, IonIcon, useIonRouter } from "@ionic/react";
+import { calendarOutline, locationOutline, paperPlane } from "ionicons/icons";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 const Home: React.FC = () => {
@@ -14,11 +15,9 @@ const Home: React.FC = () => {
 
   const originCity = watch("originCity");
   const destinationCity = watch("destinationCity");
-
-  console.log(errors);
+  const bookingDate = watch("bookingDate");
 
   const handleSearch = (data: any) => {
-    //TODO: Do search
     console.log(data);
     router.push("/home/search");
   };
@@ -31,6 +30,7 @@ const Home: React.FC = () => {
           <p>Bus travelling</p>
           <span>Search your destination</span>
         </div>
+
         <form
           className="searching-form"
           onSubmit={handleSubmit((data) => handleSearch(data))}
@@ -47,6 +47,7 @@ const Home: React.FC = () => {
               })}
             />
             <label className={originCity ? "active" : ""} htmlFor="originCity">
+              <IonIcon icon={locationOutline}></IonIcon>
               Origin
             </label>
             <p className="error">{errors.originCity?.message}</p>
@@ -67,15 +68,39 @@ const Home: React.FC = () => {
               className={destinationCity ? "active" : ""}
               htmlFor="originCity"
             >
+              <IonIcon icon={locationOutline}></IonIcon>
               Destination
             </label>
             <p className="error">{errors.destinationCity?.message}</p>
           </div>
 
-          {/* <input {...register("hour")} />
-            <input {...register("lowerHour")} />
-            <input {...register("upperHour")} /> */}
-          <button className="search-btn">Search</button>
+          <div
+            className={
+              errors.bookingDate ? "input-block has-error" : "input-block"
+            }
+          >
+            <input
+              className={bookingDate ? "active" : ""}
+              {...register("bookingDate", {
+                required: "Date is required",
+              })}
+            />
+            <label
+              className={bookingDate ? "active" : ""}
+              htmlFor="bookingDate"
+            >
+              <IonIcon icon={calendarOutline}></IonIcon>
+              Date
+            </label>
+            <p className="error">{errors.bookingDate?.message}</p>
+          </div>
+
+          <button className="search-btn">
+            Search
+            <IonIcon icon={paperPlane}></IonIcon>
+          </button>
+
+          {/* Make date picker if I have the time  */}
         </form>
       </div>
     </IonContent>

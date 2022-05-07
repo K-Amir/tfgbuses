@@ -1,3 +1,20 @@
 .container {
   padding: 20px;
+
+  .title {
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .toggle-btn {
+    margin-top: 15px;
+    text-decoration: underline;
+
+    width: max-content;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
