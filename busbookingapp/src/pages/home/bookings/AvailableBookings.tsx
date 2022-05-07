@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, useIonRouter } from "@ionic/react";
-import { arrowBackOutline, filterOutline } from "ionicons/icons";
+import { arrowBackOutline, ticket } from "ionicons/icons";
 
 import "./AvailableBookings.scss";
 import Card from "./card/Card";
@@ -20,7 +20,10 @@ const Home: React.FC = () => {
             className="icon"
             icon={arrowBackOutline}
           ></IonIcon>
-          <IonIcon className="icon filter-icon" icon={filterOutline}></IonIcon>
+          <p>
+            Available tickets <IonIcon icon={ticket}></IonIcon>{" "}
+          </p>
+          <div className="wrap"></div>
         </div>
         <div className="available-bookings">
           <Card />

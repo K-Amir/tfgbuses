@@ -1,21 +1,82 @@
-import { IonContent } from "@ionic/react";
-import React from "react";
-import SearchBar from "./components/SearchBar";
+import { IonContent, useIonRouter } from "@ionic/react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Home: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const router = useIonRouter();
+
+  const originCity = watch("originCity");
+  const destinationCity = watch("destinationCity");
+
+  console.log(errors);
+
+  const handleSearch = (data: any) => {
+    //TODO: Do search
+    console.log(data);
+    router.push("/home/search");
+  };
+
   return (
     <IonContent color="light" fullscreen>
       <div className="container">
-        <div className="user-info">
-          <div className="greentings">
-            <p>Welcome back,</p>
-            <p className="bold-name">Jhon</p>
-          </div>
-          <div className="picture">
-            <img src="https://www.fakepersongenerator.com/Face/male/male20161086391719757.jpg" />
-          </div>
+        <div className="booking-image">
+          <img src="./assets/home/mainhome.svg" alt="" />
+          <p>Bus travelling</p>
+          <span>Search your destination</span>
         </div>
-        <SearchBar />
+        <form
+          className="searching-form"
+          onSubmit={handleSubmit((data) => handleSearch(data))}
+        >
+          <div
+            className={
+              errors.originCity ? "input-block has-error" : "input-block"
+            }
+          >
+            <input
+              className={originCity ? "active" : ""}
+              {...register("originCity", {
+                required: "Origin is required",
+              })}
+            />
+            <label className={originCity ? "active" : ""} htmlFor="originCity">
+              Origin
+            </label>
+            <p className="error">{errors.originCity?.message}</p>
+          </div>
+
+          <div
+            className={
+              errors.destinationCity ? "input-block has-error" : "input-block"
+            }
+          >
+            <input
+              className={destinationCity ? "active" : ""}
+              {...register("destinationCity", {
+                required: "Destination is required",
+              })}
+            />
+            <label
+              className={destinationCity ? "active" : ""}
+              htmlFor="originCity"
+            >
+              Destination
+            </label>
+            <p className="error">{errors.destinationCity?.message}</p>
+          </div>
+
+          {/* <input {...register("hour")} />
+            <input {...register("lowerHour")} />
+            <input {...register("upperHour")} /> */}
+          <button className="search-btn">Search</button>
+        </form>
       </div>
     </IonContent>
   );

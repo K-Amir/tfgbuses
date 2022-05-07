@@ -1,4 +1,5 @@
 .options {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,6 +12,15 @@
     border-radius: 10px;
     color: white;
   }
+}
+
+.options p {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #596aca;
+  font-weight: bold;
 }
 
 .available-bookings {
