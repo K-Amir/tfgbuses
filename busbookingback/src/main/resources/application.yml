@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: busbooking
+  datasource:
+    url: jdbc:mysql://localhost:3306/busbooking
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8080

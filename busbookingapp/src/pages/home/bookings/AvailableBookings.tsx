@@ -1,11 +1,15 @@
 import { IonContent, IonIcon, useIonRouter } from "@ionic/react";
+import { observer } from "mobx-react-lite";
 import { arrowBackOutline, ticket } from "ionicons/icons";
+import { useStore } from "../../../stores/store";
 
 import "./AvailableBookings.scss";
 import Card from "./card/Card";
 
 const Home: React.FC = () => {
   const router = useIonRouter();
+
+  const { bookingStore } = useStore();
 
   const handleBackBtn = () => {
     router.goBack();
@@ -25,16 +29,17 @@ const Home: React.FC = () => {
           </p>
           <div className="wrap"></div>
         </div>
-        <div className="available-bookings">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </div>
+
+        {bookingStore.availableBookings && (
+          <div className="available-bookings">
+            {bookingStore.availableBookings.map((bus) => (
+              <Card key={bus.id} bus={bus} />
+            ))}
+          </div>
+        )}
       </div>
     </IonContent>
   );
 };
 
-export default Home;
+export default observer(Home);

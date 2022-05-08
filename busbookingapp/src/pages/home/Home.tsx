@@ -2,6 +2,7 @@ import { IonContent, IonIcon, useIonRouter } from "@ionic/react";
 import { calendarOutline, locationOutline, paperPlane } from "ionicons/icons";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useStore } from "../../stores/store";
 
 const Home: React.FC = () => {
   const {
@@ -13,12 +14,18 @@ const Home: React.FC = () => {
 
   const router = useIonRouter();
 
+  const { bookingStore } = useStore();
+
   const originCity = watch("originCity");
   const destinationCity = watch("destinationCity");
   const bookingDate = watch("bookingDate");
 
   const handleSearch = (data: any) => {
-    console.log(data);
+    bookingStore.loadAvailableBuses({
+      origin: data.originCity,
+      destination: data.destinationCity,
+      lowerDate: data.bookingDate,
+    });
     router.push("/home/search");
   };
 
@@ -99,8 +106,6 @@ const Home: React.FC = () => {
             Search
             <IonIcon icon={paperPlane}></IonIcon>
           </button>
-
-          {/* Make date picker if I have the time  */}
         </form>
       </div>
     </IonContent>

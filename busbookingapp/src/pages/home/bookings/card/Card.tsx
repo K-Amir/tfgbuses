@@ -1,38 +1,43 @@
 import { IonIcon } from "@ionic/react";
-import { mapOutline, timeOutline } from "ionicons/icons";
+import { calendarOutline, mapOutline, timeOutline } from "ionicons/icons";
 import React from "react";
+import { BusTravel } from "../../../../models/BusTravel";
 
 import "./Card.scss";
 
-const Card: React.FC = () => {
+interface Props {
+  bus: BusTravel;
+}
+
+const Card = ({ bus }: Props) => {
   return (
     <div className="card">
       <div className="bus-info">
         <div className="destination">
           <div className="hours">
-            <p>11:00</p>
-            <p>19:35</p>
+            <p>{bus.hour}</p>
+            <p>{bus.arrivalHour}</p>
           </div>
           <div className="symbol">
             <img src="./assets/icon/destination.svg" alt="" />
           </div>
           <div className="cities">
-            <p>Madrid</p>
-            <p>Barcelona</p>
+            <p>{bus.origin}</p>
+            <p>{bus.destination}</p>
           </div>
         </div>
-        <div className="price">62€</div>
+        <div className="price">{bus.price}€</div>
       </div>
       <div className="short-info">
         <div className="ticket-cut left"></div>
         <div className="ticket-cut right"></div>
         <div className="distance">
-          <IonIcon className="icon" icon={mapOutline}></IonIcon>
-          432km
+          <IonIcon className="icon" icon={calendarOutline}></IonIcon>
+          {bus.date}
         </div>
         <div className="duration">
-          <IonIcon className="icon" icon={timeOutline}></IonIcon>Duration 4
-          hours
+          <IonIcon className="icon" icon={timeOutline}></IonIcon>Duration{" "}
+          {parseFloat(bus.arrivalHour) - parseFloat(bus.hour)} hours
         </div>
         <div className="buy-ticket">Buy now</div>
       </div>
