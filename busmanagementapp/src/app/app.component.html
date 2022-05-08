@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="'.'">BusBooking</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="isMenuCollapsed = !isMenuCollapsed"
+    >
+      &#9776;
+    </button>
+
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a
+            class="nav-link"
+            [routerLink]="'/buses'"
+            (click)="isMenuCollapsed = true"
+            >Buses</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="'/incidences'"
+            (click)="isMenuCollapsed = true"
+            >Incidences</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="'/accounts'"
+            (click)="isMenuCollapsed = true"
+            >Accounts</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="'/history'"
+            (click)="isMenuCollapsed = true"
+            >Bookings History</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<router-outlet> </router-outlet>

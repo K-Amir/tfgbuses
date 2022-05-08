@@ -42,7 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/empresa/v0/auth/**", "/", "/empresa/v0/bookings/**", "/empresa/v0/buses/available").permitAll();
+                .antMatchers(
+                        "/empresa/v0/auth/token",
+                        "/empresa/v0/auth/token/{token}", "/",
+                        "/empresa/v0/bookings/**", "/empresa/v0/buses/available").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -41,8 +41,11 @@ public record AuthController(
 
     @PostMapping
     public ResponseEntity<SuccessDto> registerNewAdminUser(@RequestBody AdminUsersEntity adminUsersEntity) {
+
         adminUsersEntity.setPassword(bCryptPasswordEncoder.encode(adminUsersEntity.getPassword()));
+
         authService.save(adminUsersEntity);
+
         return SuccessDto.send("User created successfully");
     }
 

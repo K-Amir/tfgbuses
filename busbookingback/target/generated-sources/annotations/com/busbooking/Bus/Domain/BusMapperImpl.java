@@ -8,7 +8,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-08T18:47:56+0200",
+    date = "2022-05-08T19:13:52+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18 (Oracle Corporation)"
 )
 public class BusMapperImpl implements BusMapper {
@@ -22,8 +22,6 @@ public class BusMapperImpl implements BusMapper {
         BusEntity busEntity = new BusEntity();
 
         busEntity.setArrivalHour( busInputDto.getArrivalHour() );
-        busEntity.setKm( busInputDto.getKm() );
-        busEntity.setDuration( busInputDto.getDuration() );
         busEntity.setPrice( busInputDto.getPrice() );
         busEntity.setHour( busInputDto.getHour() );
         busEntity.setDate( busInputDto.getDate() );
@@ -60,9 +58,7 @@ public class BusMapperImpl implements BusMapper {
         busOutputDto.setHour( busEntity.getHour() );
         busOutputDto.setDate( busEntity.getDate() );
         busOutputDto.setArrivalHour( busEntity.getArrivalHour() );
-        busOutputDto.setKm( busEntity.getKm() );
         busOutputDto.setPrice( busEntity.getPrice() );
-        busOutputDto.setDuration( busEntity.getDuration() );
         busOutputDto.setOrigin( busEntity.getOrigin() );
         busOutputDto.setDestination( busEntity.getDestination() );
         busOutputDto.setAvailableSeats( busEntity.getAvailableSeats() );

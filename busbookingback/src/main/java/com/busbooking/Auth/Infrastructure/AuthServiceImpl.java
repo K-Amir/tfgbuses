@@ -3,6 +3,7 @@ package com.busbooking.Auth.Infrastructure;
 import com.busbooking.Auth.Domain.AdminUsersEntity;
 import com.busbooking.Auth.Domain.AuthService;
 import com.busbooking.Auth.Infrastructure.Jpa.UserJpaRepo;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
