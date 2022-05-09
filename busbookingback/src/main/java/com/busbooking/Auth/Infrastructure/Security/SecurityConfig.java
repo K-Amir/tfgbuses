@@ -44,9 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/empresa/v0/auth/token",
-                        "/empresa/v0/auth/token/{token}", "/",
-                        "/empresa/v0/bookings/**", "/empresa/v0/buses/available").permitAll();
-        http.authorizeRequests().anyRequest().authenticated();
+                        "/empresa/v0/auth/token/{token}",
+                        "/empresa/v0/auth/app",
+                        "/",
+                        "/empresa/v0/buses/available")
+                .permitAll();
+        http.authorizeRequests().antMatchers("/empresa/v0/bookings").hasAnyRole("USER","ADMIN");
+        http.authorizeRequests().anyRequest().hasRole("ADMIN");
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

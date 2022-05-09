@@ -1,6 +1,6 @@
 package com.busbooking;
 
-import com.busbooking.Auth.Domain.AdminUsersEntity;
+import com.busbooking.Auth.Domain.UsersEntity;
 import com.busbooking.Auth.Domain.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +17,9 @@ public class CommandLineRunnerStartup implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         //TODO: this can be from the docker
-        authService.save(new AdminUsersEntity("admin", bCryptPasswordEncoder.encode("admin")));
+        authService.save(
+                new UsersEntity("admin@admin.admin", bCryptPasswordEncoder.encode("admin"), "Test", "Test", true)
+        );
 
     }
 }

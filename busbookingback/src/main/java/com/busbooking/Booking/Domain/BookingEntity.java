@@ -12,14 +12,11 @@ import java.util.Date;
 @Getter
 @Setter
 public class BookingEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
     private String name;
 
     private String phone;
 
+    @Id
     private String email;
 
     @JsonFormat(pattern = "dd-MM-yyyy")

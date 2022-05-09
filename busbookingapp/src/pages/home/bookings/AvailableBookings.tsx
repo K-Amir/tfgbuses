@@ -1,6 +1,6 @@
 import { IonContent, IonIcon, useIonRouter } from "@ionic/react";
 import { observer } from "mobx-react-lite";
-import { arrowBackOutline, ticket } from "ionicons/icons";
+import { arrowBackOutline, sadOutline, ticket } from "ionicons/icons";
 import { useStore } from "../../../stores/store";
 
 import "./AvailableBookings.scss";
@@ -12,12 +12,12 @@ const Home: React.FC = () => {
   const { bookingStore } = useStore();
 
   const handleBackBtn = () => {
-    router.goBack();
+    router.push("/home");
   };
 
   return (
     <IonContent color="light" fullscreen>
-      <div className="container">
+      <div className="container container-tickets">
         <div className="options">
           <IonIcon
             onClick={handleBackBtn}
@@ -30,11 +30,16 @@ const Home: React.FC = () => {
           <div className="wrap"></div>
         </div>
 
-        {bookingStore.availableBookings && (
+        {bookingStore.availableBookings.length > 0 ? (
           <div className="available-bookings">
             {bookingStore.availableBookings.map((bus) => (
               <Card key={bus.id} bus={bus} />
             ))}
+          </div>
+        ) : (
+          <div className="not-found">
+            Sorry, no bookings found for the specified destination
+            <IonIcon class="icon" icon={sadOutline}></IonIcon>
           </div>
         )}
       </div>

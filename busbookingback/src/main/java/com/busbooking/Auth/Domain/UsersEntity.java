@@ -9,13 +9,17 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name = "admin_users")
+@Entity(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminUsersEntity {
+public class UsersEntity {
     @Id
     private String email;
     private String password;
+    private String name;
+    private String surname;
+
+    private boolean isAdmin;
 }

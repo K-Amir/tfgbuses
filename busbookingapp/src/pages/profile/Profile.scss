@@ -1,5 +1,6 @@
 .container {
   padding: 20px;
+  position: relative;
 
   .title {
     margin-top: 10px;
@@ -15,6 +16,46 @@
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .btn-logout {
+    background: #ec5a5a;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.3s ease-out;
+    &:hover {
+      background: #fa4343;
+    }
+  }
+
+  .success-message {
+    top: 30px;
+    position: absolute;
+    background: rgb(54, 150, 54);
+    color: white;
+    width: max-content;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transform: translateX(-50%);
+    left: 50%;
+    animation: animtoastsuccess 2.2s ease-out forwards;
+  }
+
+  @keyframes animtoastsuccess {
+    0% {
+      top: -60px;
+      opacity: 0;
+    }
+    50% {
+      top: 30px;
+      opacity: 1;
+    }
+    100% {
+      top: 60px;
+      opacity: 0;
     }
   }
 }

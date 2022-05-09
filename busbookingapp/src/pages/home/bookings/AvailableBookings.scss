@@ -29,3 +29,19 @@
   gap: 25px;
   margin-top: 25px;
 }
+
+.not-found {
+  margin-top: 50%;
+  transform: translateY(50%);
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  .icon {
+    color: #596aca;
+    font-size: 30px;
+  }
+}

@@ -1,31 +1,53 @@
 import { IonContent, IonPage } from "@ionic/react";
+import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
+import { useStore } from "../../stores/store";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import "./Profile.scss";
 
-const Profile: React.FC = () => {
+const Profile = () => {
   const [toggleForms, setToggleForms] = useState(true);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const { userStore } = useStore();
+
+  if (userStore.userInfo !== null) {
+    return (
+      <IonPage>
+        <IonContent color="light" fullscreen>
+          <div className="container">
+            <h1>
+              Welcome, back {userStore.userInfo && userStore.userInfo.name}
+            </h1>
+            <div className="btn-logout" onClick={userStore.logout}>
+              Log out
+            </div>
+          </div>
+        </IonContent>
+      </IonPage>
+    );
+  }
 
   return (
     <IonPage>
       <IonContent fullscreen color="light">
         <div className="container">
+          {successMessage && (
+            <div className="success-message">{successMessage}</div>
+          )}
           {toggleForms && (
             <>
-              <Login />
-              <p className="toggle-btn" onClick={() => setToggleForms(false)}>
-                New user? <b>Sign up</b> instead
-              </p>
+              <Login setToggleForms={setToggleForms} />
             </>
           )}
 
           {!toggleForms && (
             <>
-              <Signup />
-              <p className="toggle-btn" onClick={() => setToggleForms(true)}>
-                Already a user? <b>Sign in</b> instead
-              </p>
+              <Signup
+                setToggleForms={setToggleForms}
+                setSuccessMessage={setSuccessMessage}
+              />
             </>
           )}
         </div>
@@ -34,4 +56,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default observer(Profile);

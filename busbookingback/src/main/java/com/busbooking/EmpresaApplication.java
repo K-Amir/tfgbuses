@@ -1,10 +1,8 @@
 package com.busbooking;
 
 
-import com.busbooking.Auth.Domain.AdminUsersEntity;
 import com.busbooking.Auth.Domain.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,16 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class EmpresaApplication{
     private AuthService authService;
 
-
-
     public static void main(String[] args) {
         SpringApplication.run(EmpresaApplication.class, args);
     }
-
-
-
-
-
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {

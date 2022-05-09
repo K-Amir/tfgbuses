@@ -2,11 +2,11 @@ package com.busbooking.Auth.Domain;
 
 public interface AuthService {
 
-    void save(AdminUsersEntity adminUsersEntity);
+    void save(UsersEntity usersEntity);
 
     void deleteByEmail(String email);
 
-    AdminUsersEntity getByEmail(String email);
+    UsersEntity getByEmail(String email);
 
 
 }

@@ -14,7 +14,7 @@ public class IncidenceEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "bus_id")
     private BusEntity busEntity;
 

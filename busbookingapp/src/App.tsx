@@ -12,6 +12,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/home/HomeRouting";
 import { bookmark, home, person } from "ionicons/icons";
 import "./App.scss";
+import { useStore } from "./stores/store";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -34,55 +35,67 @@ import "./theme/variables.css";
 import Profile from "./pages/profile/Profile";
 import Bookings from "./pages/pastbookings/Bookings";
 import HomeRouting from "./pages/home/HomeRouting";
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route path="/home">
-            <HomeRouting />
-          </Route>
+const App: React.FC = () => {
+  const { userStore } = useStore();
 
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
+  useEffect(() => {
+    userStore.loadUser();
+  }, []);
 
-          <Route exact path="/bookings">
-            <Bookings />
-          </Route>
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route path="/home">
+              <HomeRouting />
+            </Route>
 
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-        </IonRouterOutlet>
+            <Route exact path="/profile">
+              <Profile />
+            </Route>
 
-        <IonTabBar translucent={true} className="tab-bar " slot="bottom">
-          <IonTabButton className="disable-ripple" tab="home" href="/home">
-            <IonIcon className="tab-button" icon={home}></IonIcon>
-          </IonTabButton>
+            <Route exact path="/bookings">
+              <Bookings />
+            </Route>
 
-          <IonTabButton
-            className="disable-ripple"
-            tab="bookings"
-            href="/bookings"
-          >
-            <IonIcon className="tab-button " icon={bookmark}></IonIcon>
-          </IonTabButton>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+          </IonRouterOutlet>
 
-          <IonTabButton
-            className="disable-ripple"
-            tab="profile"
-            href="/profile"
-          >
-            <IonIcon className="tab-button" icon={person}></IonIcon>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+          <IonTabBar translucent={true} className="tab-bar " slot="bottom">
+            <IonTabButton className="disable-ripple" tab="home" href="/home">
+              <IonIcon className="tab-button" icon={home}></IonIcon>
+            </IonTabButton>
 
-export default App;
+            {userStore.userInfo !== null && (
+              <IonTabButton
+                className="disable-ripple"
+                tab="bookings"
+                href="/bookings"
+              >
+                <IonIcon className="tab-button " icon={bookmark}></IonIcon>
+              </IonTabButton>
+            )}
+
+            <IonTabButton
+              className="disable-ripple"
+              tab="profile"
+              href="/profile"
+            >
+              <IonIcon className="tab-button" icon={person}></IonIcon>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
+
+export default observer(App);

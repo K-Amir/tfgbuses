@@ -1,18 +1,24 @@
 package com.busbooking.Auth.Application;
 
 
-import com.busbooking.Auth.Domain.AdminUsersEntity;
+import com.busbooking.Auth.Application.Dto.AppUserInputDto;
+import com.busbooking.Auth.Application.Dto.AppUserOutputDto;
+import com.busbooking.Auth.Domain.UsersEntity;
 import com.busbooking.Auth.Domain.AuthService;
+import com.busbooking.Auth.Domain.UsersMapper;
 import com.busbooking.Auth.Infrastructure.JwtUtil;
 import com.busbooking.ErrorHandling.SuccessDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("empresa/v0/auth")
@@ -40,19 +46,41 @@ public record AuthController(
     }
 
     @PostMapping
-    public ResponseEntity<SuccessDto> registerNewAdminUser(@RequestBody AdminUsersEntity adminUsersEntity) {
+    public ResponseEntity<SuccessDto> registerNewAdminUser(@RequestBody @Valid AppUserInputDto appUserInputDto) {
 
-        adminUsersEntity.setPassword(bCryptPasswordEncoder.encode(adminUsersEntity.getPassword()));
+        UsersEntity user = UsersMapper.MAP.appUserInputToUserEntity(appUserInputDto);
 
-        authService.save(adminUsersEntity);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        user.setAdmin(true);
+
+        authService.save(user);
+
+        return SuccessDto.send("User created successfully");
+    }
+
+    @PostMapping("app")
+    public ResponseEntity<?> registerNewAppUser(@RequestBody @Valid AppUserInputDto appUserInputDto){
+        UsersEntity user = UsersMapper.MAP.appUserInputToUserEntity(appUserInputDto);
+
+        user.setAdmin(false);
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        authService.save(user);
 
         return SuccessDto.send("User created successfully");
     }
 
 
     @GetMapping("token/{token}")
-    public ResponseEntity<?> checkToken(@PathVariable String token) {
+    public ResponseEntity<?> getUserByToken(@PathVariable String token) {
         String subject =  jwtUtil.getSubject(token);
-        return ResponseEntity.ok().body(true);
+
+        UsersEntity user = authService.getByEmail(subject);
+
+        AppUserOutputDto appUserOutputDto = UsersMapper.MAP.userEntityToAppUserOutputDto(user);
+
+        return ResponseEntity.ok().body(appUserOutputDto);
     }
 }

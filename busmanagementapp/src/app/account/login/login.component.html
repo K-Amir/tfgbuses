@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form (ngSubmit)="handleFormSubmit()">
     <p>Login using your credentials</p>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
@@ -8,11 +8,19 @@
         class="form-control"
         id="email"
         aria-describedby="emailHelp"
+        [(ngModel)]="email"
+        name="email"
       />
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" />
+      <input
+        name="password"
+        type="password"
+        class="form-control"
+        [(ngModel)]="password"
+        id="password"
+      />
     </div>
 
     <button type="submit" class="btn btn-primary">Log in</button>

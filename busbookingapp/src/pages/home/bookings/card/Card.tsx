@@ -1,7 +1,7 @@
-import { IonIcon } from "@ionic/react";
-import { calendarOutline, mapOutline, timeOutline } from "ionicons/icons";
-import React from "react";
+import { IonIcon, useIonRouter } from "@ionic/react";
+import { calendarOutline, timeOutline } from "ionicons/icons";
 import { BusTravel } from "../../../../models/BusTravel";
+import { useStore } from "../../../../stores/store";
 
 import "./Card.scss";
 
@@ -10,6 +10,17 @@ interface Props {
 }
 
 const Card = ({ bus }: Props) => {
+  const { userStore } = useStore();
+  const router = useIonRouter();
+
+  const handlePurchase = () => {
+    console.log({ ...bus });
+    if (userStore.userInfo === null) {
+      router.push("/profile");
+    }
+    //TODO: Go to payment thing and make payment to buy the ticket
+  };
+
   return (
     <div className="card">
       <div className="bus-info">
@@ -36,10 +47,12 @@ const Card = ({ bus }: Props) => {
           {bus.date}
         </div>
         <div className="duration">
-          <IonIcon className="icon" icon={timeOutline}></IonIcon>Duration{" "}
-          {parseFloat(bus.arrivalHour) - parseFloat(bus.hour)} hours
+          <IonIcon className="icon" icon={timeOutline}></IonIcon>
+          Duration {parseFloat(bus.arrivalHour) - parseFloat(bus.hour)} hours
         </div>
-        <div className="buy-ticket">Buy now</div>
+        <div onClick={handlePurchase} className="buy-ticket">
+          Buy now
+        </div>
       </div>
     </div>
   );

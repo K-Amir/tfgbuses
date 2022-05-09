@@ -1,6 +1,6 @@
 package com.busbooking.Auth.Infrastructure.Security;
 
-import com.busbooking.Auth.Domain.AdminUsersEntity;
+import com.busbooking.Auth.Domain.UsersEntity;
 import com.busbooking.Auth.Domain.AuthService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,14 +18,20 @@ public record UserDetailsServiceImpl(AuthService authService) implements UserDet
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AdminUsersEntity adminUsersEntity = authService.getByEmail(email);
-        if (adminUsersEntity == null) {
+        UsersEntity usersEntity = authService.getByEmail(email);
+        if (usersEntity == null) {
             throw new UsernameNotFoundException("Not found");
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
-        return new User(adminUsersEntity.getEmail(), adminUsersEntity.getPassword(), authorities);
+        if(usersEntity.isAdmin()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+
+
+        return new User(usersEntity.getEmail(), usersEntity.getPassword(), authorities);
     }
 }
