@@ -5,6 +5,7 @@ import { useStore } from "../../../stores/store";
 
 import "./AvailableBookings.scss";
 import Card from "./card/Card";
+import Checkout from "./checkout/Checkout";
 
 const Home: React.FC = () => {
   const router = useIonRouter();

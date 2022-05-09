@@ -2,6 +2,7 @@ package com.busbooking.Booking.Infrastructure;
 
 import com.busbooking.Auth.Domain.AuthService;
 import com.busbooking.Booking.Application.Dto.BookingFormInputDto;
+import com.busbooking.Booking.Application.Dto.BuyingInputDto;
 import com.busbooking.Booking.Domain.BookingEntity;
 import com.busbooking.Booking.Domain.BookingService;
 import com.busbooking.Booking.Infrastructure.Jpa.BookingJpaRepository;
@@ -13,6 +14,7 @@ import com.busbooking.Incidence.Domain.IncidenceEntity;
 import com.busbooking.Incidence.Domain.IncidenceService;
 import com.busbooking.Mail.Domain.MailService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -22,19 +24,23 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class BookingServiceImpl implements BookingService {
     private BookingJpaRepository bookingRepo;
     private BusService busService;
     private MailService mailService;
     private IncidenceService incidenceService;
 
+    private StripeService stripeService;
+
     private AuthService authService;
 
 
     @Override
-    public BookingEntity createBooking(BookingEntity bookingEntity, BookingFormInputDto bookingFormInputDto) {
+    public BookingEntity createBooking(BuyingInputDto buyingInputDto) {
 
-        BusEntity busEntity = busService.findBusById(bookingFormInputDto.getBusId());
+        BookingEntity bookingEntity = new BookingEntity();
+        BusEntity busEntity = busService.findBusById(buyingInputDto.getBusId());
 
         if (busEntity.getAvailableSeats() <= 0) {
             throw new NoSeatsAvailableException("The book seats are already full");
@@ -42,7 +48,7 @@ public class BookingServiceImpl implements BookingService {
 
         bookingEntity.setBusEntity(busEntity);
 
-        bookingEntity.setUsersEntity(authService.getByEmail(bookingFormInputDto.getUserEmail()));
+        bookingEntity.setUsersEntity(authService.getByEmail(buyingInputDto.getUserEmail()));
 
         IncidenceEntity incidence = incidenceService.findIncidenceByBusId(busEntity.getId());
 
@@ -50,6 +56,13 @@ public class BookingServiceImpl implements BookingService {
             mailService.sendSuccessEmail(bookingEntity);
             throw new BusIncidenceExpcetion("Bus has an incidence:  " + incidence.getReason());
         }
+
+        //TODO: Safe path, no incidences, and seats available
+
+        // We charge the user
+
+
+        stripeService.createCharge(buyingInputDto.getUserEmail(), buyingInputDto.getId(), buyingInputDto.getAmount());
 
         BookingEntity bookingEntitySaved = bookingRepo.saveAndFlush(bookingEntity);
 

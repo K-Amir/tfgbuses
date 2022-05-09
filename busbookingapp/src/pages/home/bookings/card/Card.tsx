@@ -1,7 +1,9 @@
 import { IonIcon, useIonRouter } from "@ionic/react";
-import { calendarOutline, card, timeOutline } from "ionicons/icons";
+import { calendarOutline, timeOutline } from "ionicons/icons";
+import { useState } from "react";
 import { BusTravel } from "../../../../models/BusTravel";
 import { useStore } from "../../../../stores/store";
+import Checkout from "../checkout/Checkout";
 
 import "./Card.scss";
 
@@ -12,15 +14,19 @@ interface Props {
 const Card = ({ bus }: Props) => {
   const { userStore } = useStore();
   const router = useIonRouter();
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const handlePurchase = async () => {
     if (userStore.userInfo === null) {
       router.push("/profile");
     }
+    setShowCheckout(true);
   };
 
   return (
     <div className="card">
+      {showCheckout && <Checkout bus={bus} setShowCheckout={setShowCheckout} />}
+
       <div className="bus-info">
         <div className="destination">
           <div className="hours">

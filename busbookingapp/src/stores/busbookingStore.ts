@@ -33,7 +33,7 @@ export default class BookingsStore {
         },
       }
     );
-    console.log(availableBookingsServer.data);
+
     if (!availableBookingsServer.data) return;
 
     this.setAvailableBookings(availableBookingsServer.data);

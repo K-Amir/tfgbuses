@@ -23,8 +23,12 @@ export default class UserStore {
       url: "http://localhost:8080/empresa/v0/auth/token/" + token,
     });
 
-    let userInfo: UserInfo = res.data;
-    this.setUserInfo(userInfo);
+    if (res.status == 200) {
+      let userInfo: UserInfo = res.data;
+      this.setUserInfo(userInfo);
+    } else {
+      this.setUserInfo(null);
+    }
   };
 
   logout = async () => {
@@ -46,7 +50,7 @@ export default class UserStore {
     this.loadUser();
   };
 
-  setUserInfo(userInfo: UserInfo) {
+  setUserInfo(userInfo: UserInfo | null) {
     this.userInfo = userInfo;
   }
 }

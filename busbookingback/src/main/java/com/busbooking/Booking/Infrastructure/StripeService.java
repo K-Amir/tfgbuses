@@ -3,6 +3,8 @@ package com.busbooking.Booking.Infrastructure;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
+import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,37 +19,22 @@ public class StripeService {
         String id = null;
         try {
             Stripe.apiKey = this.API_KEY;
-            Map<String, Object> chargeParams = new HashMap<>();
-            chargeParams.put("amount", amount);
-            chargeParams.put("currency", "eur");
-            chargeParams.put("description", "Charge for " + email);
-            chargeParams.put("source", token);
+            Map<String, Object> params = new HashMap<>();
+            params.put("amount", amount);
+            params.put("currency", "eur");
+            params.put("payment_method", token);
+            params.put("confirm", true);
+            PaymentIntent payment = PaymentIntent.create(params);
 
-            Charge charge = Charge.create(chargeParams);
-            id = charge.getId();
+            id = payment.getId();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return id;
     }
 
-    public String createCustomer(String email, String token) {
-        String id = null;
-        try {
-            Stripe.apiKey = this.API_KEY;
-            Map<String, Object> customerParams = new HashMap<>();
-            customerParams.put("id", email);
-            customerParams.put("description", "Customer for " + email);
-            customerParams.put("email", email);
-            customerParams.put("source", token);
 
-            Customer customer = Customer.create(customerParams);
-            id = customer.getId();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return id;
-    }
 
 
 }
