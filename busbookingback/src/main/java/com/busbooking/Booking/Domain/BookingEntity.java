@@ -1,5 +1,6 @@
 package com.busbooking.Booking.Domain;
 
+import com.busbooking.Auth.Domain.UsersEntity;
 import com.busbooking.Bus.Domain.BusEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -12,26 +13,16 @@ import java.util.Date;
 @Getter
 @Setter
 public class BookingEntity {
-    private String name;
-
-    private String phone;
-
     @Id
-    private String email;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date date;
-
-    private String hour;
-
-    private String origin;
-
-
-    private String destination;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "bus_id")
     private BusEntity busEntity;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UsersEntity usersEntity;
 
 }

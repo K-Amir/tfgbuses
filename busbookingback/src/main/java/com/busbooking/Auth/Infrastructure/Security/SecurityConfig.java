@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @EnableWebSecurity
 @AllArgsConstructor
@@ -40,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(
@@ -49,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/",
                         "/empresa/v0/buses/available")
                 .permitAll();
-        http.authorizeRequests().antMatchers("/empresa/v0/bookings").hasAnyRole("USER","ADMIN");
+        http.authorizeRequests().antMatchers("/empresa/v0/bookings/**").hasAnyRole("USER", "ADMIN");
+
         http.authorizeRequests().anyRequest().hasRole("ADMIN");
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

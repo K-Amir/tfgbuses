@@ -1,5 +1,5 @@
 import { IonIcon, useIonRouter } from "@ionic/react";
-import { calendarOutline, timeOutline } from "ionicons/icons";
+import { calendarOutline, card, timeOutline } from "ionicons/icons";
 import { BusTravel } from "../../../../models/BusTravel";
 import { useStore } from "../../../../stores/store";
 
@@ -13,12 +13,10 @@ const Card = ({ bus }: Props) => {
   const { userStore } = useStore();
   const router = useIonRouter();
 
-  const handlePurchase = () => {
-    console.log({ ...bus });
+  const handlePurchase = async () => {
     if (userStore.userInfo === null) {
       router.push("/profile");
     }
-    //TODO: Go to payment thing and make payment to buy the ticket
   };
 
   return (

@@ -1,5 +1,7 @@
 package com.busbooking.Booking.Infrastructure;
 
+import com.busbooking.Auth.Domain.AuthService;
+import com.busbooking.Booking.Application.Dto.BookingFormInputDto;
 import com.busbooking.Booking.Domain.BookingEntity;
 import com.busbooking.Booking.Domain.BookingService;
 import com.busbooking.Booking.Infrastructure.Jpa.BookingJpaRepository;
@@ -26,19 +28,21 @@ public class BookingServiceImpl implements BookingService {
     private MailService mailService;
     private IncidenceService incidenceService;
 
+    private AuthService authService;
+
 
     @Override
-    public BookingEntity createBooking(BookingEntity bookingEntity) {
+    public BookingEntity createBooking(BookingEntity bookingEntity, BookingFormInputDto bookingFormInputDto) {
 
-        BusEntity busEntity = busService.findBusToBook(bookingEntity.getDate(), bookingEntity.getOrigin(), bookingEntity.getDestination(), bookingEntity.getHour());
+        BusEntity busEntity = busService.findBusById(bookingFormInputDto.getBusId());
 
-        bookingEntity.setBusEntity(busEntity);
-
-        if(busEntity.getAvailableSeats()<=0){
+        if (busEntity.getAvailableSeats() <= 0) {
             throw new NoSeatsAvailableException("The book seats are already full");
         }
 
-        BookingEntity bookingEntitySaved = bookingRepo.saveAndFlush(bookingEntity);
+        bookingEntity.setBusEntity(busEntity);
+
+        bookingEntity.setUsersEntity(authService.getByEmail(bookingFormInputDto.getUserEmail()));
 
         IncidenceEntity incidence = incidenceService.findIncidenceByBusId(busEntity.getId());
 
@@ -47,7 +51,10 @@ public class BookingServiceImpl implements BookingService {
             throw new BusIncidenceExpcetion("Bus has an incidence:  " + incidence.getReason());
         }
 
+        BookingEntity bookingEntitySaved = bookingRepo.saveAndFlush(bookingEntity);
+
         mailService.sendSuccessEmail(bookingEntitySaved);
+
         busService.decreaseAvailableSeats(busEntity);
 
         return bookingEntitySaved;
@@ -67,43 +74,11 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
-    @Override
-    public void registerBookingFromWebAndCheckAvailability(BookingEntity bookingEntity) {
-        BusEntity busEntity = busService.findBusToBook(bookingEntity.getDate(), bookingEntity.getOrigin(), bookingEntity.getDestination(), bookingEntity.getHour());
-
-        bookingEntity.setBusEntity(busEntity);
-
-        bookingRepo.saveAndFlush(bookingEntity);
-
-        IncidenceEntity incidence = incidenceService.findIncidenceByBusId(busEntity.getId());
-
-        if(busEntity.getAvailableSeats()<=0){
-            mailService.sendCancellationEmail(bookingEntity, "Sorry but your travel has been cancelled due to insuficient seats");
-            return;
-        }
-
-
-        if (busHasNoIncidences(incidence)) {
-            busService.decreaseAvailableSeats(busEntity);
-            mailService.sendSuccessEmail(bookingEntity);
-            return;
-        }
-
-        mailService.sendCancellationEmail(bookingEntity, incidence.getReason());
-
-
-    }
 
     @Override
     public List<BookingEntity> findBookingEntitiesByBusEntity_Id(int busId) {
         return bookingRepo.findBookingEntitiesByBusEntity_Id(busId);
     }
-
-    @Override
-    public BookingEntity findBookingEntityByEmailIsAndOriginIsAndDestinationIsAndDateIsAndHourIs(String email, String origin, String destination, Date date, String hour) {
-        return bookingRepo.findBookingEntityByEmailIsAndOriginIsAndDestinationIsAndDateIsAndHourIs(email, origin, destination, date, hour);
-    }
-
 
 
     private boolean busHasNoIncidences(IncidenceEntity incidence) {
@@ -113,8 +88,6 @@ public class BookingServiceImpl implements BookingService {
     private boolean busHasIncidences(IncidenceEntity incidence) {
         return incidence != null;
     }
-
-
 
 
 }

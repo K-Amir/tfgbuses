@@ -9,5 +9,5 @@ import java.util.List;
 public interface BookingJpaRepository extends JpaRepository<BookingEntity, Integer> {
     List<BookingEntity> findBookingEntitiesByBusEntity_Id(int busId);
 
-    BookingEntity findBookingEntityByEmailIsAndOriginIsAndDestinationIsAndDateIsAndHourIs(String email, String origin, String destination, Date date, String hour);
+
 }

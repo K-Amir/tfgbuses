@@ -29,13 +29,13 @@ public class MailServiceImpl implements MailService {
 
     public void sendSuccessEmail(BookingEntity bookingEntity) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(bookingEntity.getEmail());
+        message.setTo(bookingEntity.getUsersEntity().getEmail());
         message.setFrom("virtual.travel.info@gmail.com");
-        message.setSubject("Good news ! Your booking to " + bookingEntity.getDestination() + " on " + formatDate(bookingEntity.getDate()) + " at " + bookingEntity.getHour() + " has been registered successfully.");
+        message.setSubject("Good news ! Your booking to " + bookingEntity.getBusEntity().getDestination() + " on " + formatDate(bookingEntity.getBusEntity().getDate()) + " at " + bookingEntity.getBusEntity().getDate() + " has been registered successfully.");
         message.setText("Thanks for trusting in VirtualTravel! \nIn case of any incidence or cancellation you will be informed as well too");
 
         registerMailEntity(MailEntity.builder()
-                .mailTo(bookingEntity.getEmail())
+                .mailTo(bookingEntity.getUsersEntity().getEmail())
                 .mailFrom("virtual.travel.info@gmail.com")
                 .mailMessage("Thanks for trusting in VirtualTravel! \nIn case of any incidence or cancellation you will be informed as well too")
                 .build());
@@ -48,12 +48,12 @@ public class MailServiceImpl implements MailService {
     public void sendCancellationEmail(BookingEntity bookingEntity, String reason) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("virtual.travel.info@gmail.com");
-        message.setTo(bookingEntity.getEmail());
-        message.setSubject("Bad news :C... Your booking to " + bookingEntity.getDestination() + "  on " + formatDate(bookingEntity.getDate()) + " at " + bookingEntity.getHour() + " has been cancelled.");
+        message.setTo(bookingEntity.getUsersEntity().getEmail());
+        message.setSubject("Bad news :C... Your booking to " + bookingEntity.getBusEntity().getDestination() + "  on " + formatDate(bookingEntity.getBusEntity().getDate()) + " at " + bookingEntity.getBusEntity().getHour() + " has been cancelled.");
         message.setText(reason);
 
         registerMailEntity(MailEntity.builder()
-                .mailTo(bookingEntity.getEmail())
+                .mailTo(bookingEntity.getUsersEntity().getEmail())
                 .mailFrom("virtual.travel.info@gmail.com")
                 .mailMessage(reason)
                 .build());
