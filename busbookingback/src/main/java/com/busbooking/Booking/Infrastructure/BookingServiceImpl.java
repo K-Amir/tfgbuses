@@ -79,6 +79,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public List<BookingEntity> findBookingByEmails(String email) {
+       return bookingRepo.findBookingEntitiesByUsersEntity_Email(email);
+    }
+
+    @Override
     public void deleteBookingById(int id) {
         try {
             bookingRepo.deleteById(id);

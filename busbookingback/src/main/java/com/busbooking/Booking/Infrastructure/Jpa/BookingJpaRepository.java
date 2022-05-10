@@ -9,5 +9,7 @@ import java.util.List;
 public interface BookingJpaRepository extends JpaRepository<BookingEntity, Integer> {
     List<BookingEntity> findBookingEntitiesByBusEntity_Id(int busId);
 
+    List<BookingEntity> findBookingEntitiesByUsersEntity_Email(String email);
+
 
 }

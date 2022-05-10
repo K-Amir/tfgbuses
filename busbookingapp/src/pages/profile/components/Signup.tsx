@@ -106,6 +106,10 @@ const Signup = ({ setToggleForms, setSuccessMessage }: Props) => {
                 className={email ? "active" : ""}
                 {...register("email", {
                   required: "Email is required",
+                  pattern: {
+                    value: new RegExp("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$"),
+                    message: "Email not valid",
+                  },
                 })}
               />
               <label className={email ? "active" : ""} htmlFor="email">

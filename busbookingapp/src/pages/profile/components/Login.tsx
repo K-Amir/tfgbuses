@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./Login.scss";
 import { useStore } from "../../../stores/store";
+import { observer } from "mobx-react-lite";
 
 interface Props {
   setToggleForms: (value: boolean) => void;
@@ -25,8 +26,8 @@ const Login = ({ setToggleForms }: Props) => {
 
   const handleLogin = (data: any) => {
     userStore.loginUser(data.password, data.email);
-    if (userStore.userInfo) {
-      router.push("/home");
+    if (userStore.userInfo !== null) {
+      router.push("/bookings");
     } else {
       setError("Wrong credentials");
     }
@@ -93,4 +94,4 @@ const Login = ({ setToggleForms }: Props) => {
   );
 };
 
-export default Login;
+export default observer(Login);

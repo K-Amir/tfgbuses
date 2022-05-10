@@ -59,6 +59,9 @@ const PaymentForm = ({ setShowCheckout, bus }: Props) => {
           }
         );
         setLoading(false);
+
+        userStore.loadUserTickets();
+
         if (response.status === 200) {
           router.push("/bookings");
         }

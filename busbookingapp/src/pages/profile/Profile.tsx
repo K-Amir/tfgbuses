@@ -1,6 +1,6 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "../../stores/store";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -16,14 +16,18 @@ const Profile = () => {
     return (
       <IonPage>
         <IonContent color="light" fullscreen>
-          <div className="container">
-            <h1>
-              Welcome, back {userStore.userInfo && userStore.userInfo.name}
-            </h1>
-            <div className="btn-logout" onClick={userStore.logout}>
-              Log out
+          {userStore.userInfo && (
+            <div className="container">
+              <h4>
+                Welcome, back {userStore.userInfo.name}{" "}
+                {userStore.userInfo.surname}
+              </h4>
+
+              <div className="btn-logout" onClick={userStore.logout}>
+                Log out
+              </div>
             </div>
-          </div>
+          )}
         </IonContent>
       </IonPage>
     );

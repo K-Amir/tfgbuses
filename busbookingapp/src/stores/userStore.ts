@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import axios, { AxiosResponse } from "axios";
+import Ticket from "../models/Ticket";
 
 interface UserInfo {
   email: string;
@@ -9,6 +10,7 @@ interface UserInfo {
 
 export default class UserStore {
   userInfo: UserInfo | null = null;
+  userTickers: Ticket[] | null = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -31,9 +33,28 @@ export default class UserStore {
     }
   };
 
+  loadUserTickets = async () => {
+    const jwt = localStorage.getItem("jwt");
+    if (!jwt) return;
+    const res = await axios.get(
+      `http://localhost:8080/empresa/v0/bookings/${jwt}`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      }
+    );
+    this.setUserTickers(res.data);
+  };
+
+  setUserTickers = (userTickers: any) => {
+    this.userTickers = userTickers;
+  };
+
   logout = async () => {
     localStorage.removeItem("jwt");
     this.userInfo = null;
+    this.userTickers = null;
   };
 
   loginUser = async (password: string, email: string) => {
@@ -48,6 +69,7 @@ export default class UserStore {
     const jwtToken: string = response.data;
     localStorage.setItem("jwt", jwtToken);
     this.loadUser();
+    this.loadUserTickets();
   };
 
   setUserInfo(userInfo: UserInfo | null) {

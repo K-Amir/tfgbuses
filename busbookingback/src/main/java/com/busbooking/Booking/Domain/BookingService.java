@@ -14,6 +14,8 @@ public interface BookingService {
 
     void deleteBookingById(int id);
 
+    public List<BookingEntity> findBookingByEmails(String email);
+
     List<BookingEntity> findBookingEntitiesByBusEntity_Id(int busId);
 
 }
