@@ -12,6 +12,8 @@ public class BookingsUserDto {
     private String arrivalHour;
     private String price;
     private String hour;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
     private String origin;
     private String destination;

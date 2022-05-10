@@ -6,6 +6,7 @@ import QRCode from "react-qr-code";
 
 import "./Bookings.scss";
 import Ticket from "../../models/Ticket";
+import TicketItem from "./ticket/TicketItem";
 
 const Bookings: React.FC = () => {
   const { userStore } = useStore();
@@ -25,17 +26,7 @@ const Bookings: React.FC = () => {
               <h2>My tickets</h2>
               {userStore.userTickers &&
                 userStore.userTickers.map((ticket: Ticket, index: number) => {
-                  return (
-                    <div className="busthing" key={index}>
-                      {ticket.origin} - {ticket.destination}
-                      <br />
-                      <QRCode
-                        size={120}
-                        key={index}
-                        value={ticket.jwtQr}
-                      ></QRCode>
-                    </div>
-                  );
+                  return <TicketItem key={index} ticket={ticket} />;
                 })}
             </div>
           )}
