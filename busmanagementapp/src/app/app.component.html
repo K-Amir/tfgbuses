@@ -1,52 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
-  <div class="container">
-    <a class="navbar-brand" [routerLink]="'.'">BusBooking</a>
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      (click)="isMenuCollapsed = !isMenuCollapsed"
+<div class="container-fluid vh-100 bg-white d-flex">
+  <div class="menu">
+    <div class="menu_item" routerLinkActive="active" [routerLink]="'/buses'">
+      <fa-icon [icon]="faBusSimple"></fa-icon>
+      <span>Buses</span>
+    </div>
+    <div
+      class="menu_item"
+      routerLinkActive="active"
+      [routerLink]="'/incidences'"
     >
-      &#9776;
-    </button>
-
-    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a
-            class="nav-link"
-            [routerLink]="'/buses'"
-            (click)="isMenuCollapsed = true"
-            >Buses</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="'/incidences'"
-            (click)="isMenuCollapsed = true"
-            >Incidences</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="'/accounts'"
-            (click)="isMenuCollapsed = true"
-            >Accounts</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="'/history'"
-            (click)="isMenuCollapsed = true"
-            >Bookings History</a
-          >
-        </li>
-      </ul>
+      <fa-icon [icon]="faWarning"></fa-icon>
+      <span>Incidences</span>
+    </div>
+    <div class="menu_item" routerLinkActive="active" [routerLink]="'/accounts'">
+      <fa-icon [icon]="faUser"></fa-icon>
+      <span>Accounts</span>
+    </div>
+    <div class="menu_item" routerLinkActive="active" [routerLink]="'/history'">
+      <fa-icon [icon]="faClock"></fa-icon>
+      <span>Bookings History</span>
+    </div>
+    <div *ngIf="isLoggedIn" class="menu_item logout" (click)="handleLogout()">
+      <span>Logout</span>
     </div>
   </div>
-</nav>
-
-<router-outlet> </router-outlet>
+  <router-outlet class="outlet"> </router-outlet>
+</div>

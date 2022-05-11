@@ -1,3 +1,15 @@
 <div class="container">
-  <p>Welcome to the administration panel</p>
+  <div class="alert alert-success" role="alert">
+    Welcome to the Bus dashboard
+  </div>
+  <p
+    class="text-danger text-decoration-underline cursor-pointer"
+    *ngIf="!isLoggedIn"
+    routerLink="/account/login"
+  >
+    Log in to get started
+  </p>
+  <div *ngIf="isLoggedIn">
+    <p>Here is where you can manage the bus appp</p>
+  </div>
 </div>
