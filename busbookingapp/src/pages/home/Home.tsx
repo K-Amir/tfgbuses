@@ -3,17 +3,19 @@ import { calendarOutline, locationOutline, paperPlane } from "ionicons/icons";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useStore } from "../../stores/store";
+import DatePicker from "react-multi-date-picker";
 
 const Home: React.FC = () => {
   const {
     register,
+
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const router = useIonRouter();
-
   const { bookingStore } = useStore();
 
   const originCity = watch("originCity");
@@ -31,6 +33,10 @@ const Home: React.FC = () => {
     router.push("/home/search");
   };
 
+  const handleDateChange = (value: any) => {
+    setValue("bookingDate", value.format("DD/MM/YYYY"));
+  };
+
   return (
     <IonContent color="light" fullscreen>
       <div className="container">
@@ -38,7 +44,7 @@ const Home: React.FC = () => {
           <img
             onLoad={() => setShowContent(true)}
             src="./assets/home/mainhome.svg"
-            alt=""
+            alt="Girl and two buses in a bus station"
           />
         </div>
         {showContent && (
@@ -106,6 +112,7 @@ const Home: React.FC = () => {
                     required: "Date is required",
                   })}
                 />
+
                 <label
                   className={bookingDate ? "active" : ""}
                   htmlFor="bookingDate"
@@ -113,6 +120,13 @@ const Home: React.FC = () => {
                   <IonIcon icon={calendarOutline}></IonIcon>
                   Date
                 </label>
+
+                <DatePicker
+                  format="DD/MM/YYYY"
+                  containerClassName="date-picker"
+                  onChange={handleDateChange}
+                />
+
                 <p className="error">{errors.bookingDate?.message}</p>
               </div>
 

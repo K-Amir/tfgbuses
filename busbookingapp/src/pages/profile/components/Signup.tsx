@@ -1,4 +1,4 @@
-import { IonIcon, useIonRouter } from "@ionic/react";
+import { IonIcon } from "@ionic/react";
 import {
   keyOutline,
   lockClosed,
@@ -6,7 +6,7 @@ import {
   peopleOutline,
   personOutline,
 } from "ionicons/icons";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "./Signup.scss";
@@ -54,7 +54,7 @@ const Signup = ({ setToggleForms, setSuccessMessage }: Props) => {
         onLoad={() => setShowContent(true)}
         className="paper-sign"
         src="./assets/icon/signup.svg"
-        alt=""
+        alt="Sign locking with the key and the lock"
       />
 
       {showContent && (

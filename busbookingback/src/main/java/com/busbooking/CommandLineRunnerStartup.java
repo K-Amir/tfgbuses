@@ -21,5 +21,7 @@ public class CommandLineRunnerStartup implements CommandLineRunner {
                 new UsersEntity("admin@admin.admin", bCryptPasswordEncoder.encode("admin"), "Test", "Test", true)
         );
 
+
+
     }
 }

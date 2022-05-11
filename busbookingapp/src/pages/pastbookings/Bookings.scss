@@ -2,4 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  .no-ticket {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: #596aca;
+    font-weight: bold;
+    align-items: center;
+  }
 }

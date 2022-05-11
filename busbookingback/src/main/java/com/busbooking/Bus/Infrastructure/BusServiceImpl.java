@@ -72,14 +72,14 @@ public class BusServiceImpl implements BusService {
             switch (key){
                 case "lowerDate":
                     try {
-                        predicates.add(cb.greaterThanOrEqualTo(root.get("date"), (Date)new SimpleDateFormat("ddMMyyyy").parse((String) value)));
+                        predicates.add(cb.greaterThanOrEqualTo(root.get("date"), (Date)new SimpleDateFormat("dd/MM/yyyy").parse((String) value)));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "upperDate":
                     try {
-                        predicates.add(cb.lessThanOrEqualTo(root.get("date"), (Date)new SimpleDateFormat("ddMMyyyy").parse((String) value)));
+                        predicates.add(cb.lessThanOrEqualTo(root.get("date"), (Date)new SimpleDateFormat("dd/MM/yyyy").parse((String) value)));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

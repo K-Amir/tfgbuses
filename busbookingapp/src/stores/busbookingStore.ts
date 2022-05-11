@@ -2,12 +2,6 @@ import { makeAutoObservable } from "mobx";
 import { BusTravel } from "../models/BusTravel";
 import axios from "axios";
 
-interface SearchBusData {
-  origin: string;
-  destination: string;
-  date: string;
-}
-
 interface Filters {
   lowerDate: string;
   destination: string;

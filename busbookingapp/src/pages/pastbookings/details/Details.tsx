@@ -1,4 +1,4 @@
-import React from "react";
+import moment from "moment";
 import QRCode from "react-qr-code";
 import Ticket from "../../../models/Ticket";
 import { useStore } from "../../../stores/store";
@@ -10,6 +10,8 @@ interface Props {
 }
 
 const Details = ({ setShowDetails, ticket }: Props) => {
+  const date = moment(new Date(ticket.date));
+
   const { userStore } = useStore();
 
   return (
@@ -22,15 +24,18 @@ const Details = ({ setShowDetails, ticket }: Props) => {
           <p>{ticket.hour}</p>
           <p>{ticket.arrivalHour}</p>
         </div>
-        <img src="./assets/icon/longqr.svg" />
+        <img
+          src="./assets/icon/longqr.svg"
+          alt="Indicate the length distance"
+        />
         <div className="destinations">
           <p>{ticket.origin}</p>
           <p>{ticket.destination}</p>
         </div>
         <div className="date">
           <p>Date :</p>
-          <span>{ticket.date}</span>
-          {/* <div className="seat">Seat 01</div> */}
+          <span>{date.format("MMMM Do YYYY")}</span>
+          <div className="seat">Seat 01</div>
         </div>
         <div className="passenger">
           <p>Passenger :</p>

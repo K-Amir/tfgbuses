@@ -1,12 +1,5 @@
 import { IonIcon, useIonRouter } from "@ionic/react";
-import {
-  CardCvcElement,
-  CardElement,
-  CardExpiryElement,
-  CardNumberElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 import axios from "axios";
 import { closeOutline } from "ionicons/icons";

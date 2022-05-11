@@ -1,6 +1,6 @@
 import { IonIcon, useIonRouter } from "@ionic/react";
 import { keyOutline, lockClosed, mailOutline } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./Login.scss";
 import { useStore } from "../../../stores/store";
@@ -39,7 +39,7 @@ const Login = ({ setToggleForms }: Props) => {
       <img
         onLoad={() => setShowContent(true)}
         src="./assets/icon/personlogin.svg"
-        alt=""
+        alt="Login  user signing a dcoument for it"
       />
       {showContent && (
         <>

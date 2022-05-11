@@ -25,7 +25,7 @@ export default class UserStore {
       url: "http://localhost:8080/empresa/v0/auth/token/" + token,
     });
 
-    if (res.status == 200) {
+    if (res.status === 200) {
       let userInfo: UserInfo = res.data;
       this.setUserInfo(userInfo);
     } else {

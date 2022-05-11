@@ -1,19 +1,19 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonIcon, IonPage } from "@ionic/react";
 import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useStore } from "../../stores/store";
-import QRCode from "react-qr-code";
 
 import "./Bookings.scss";
 import Ticket from "../../models/Ticket";
 import TicketItem from "./ticket/TicketItem";
+import { sadOutline } from "ionicons/icons";
 
 const Bookings: React.FC = () => {
   const { userStore } = useStore();
 
   useEffect(() => {
     userStore.loadUserTickets();
-  }, []);
+  }, [userStore]);
 
   return (
     <IonPage>
@@ -24,10 +24,16 @@ const Bookings: React.FC = () => {
           {userStore.userInfo != null && (
             <div className="tickets">
               <h2>My tickets</h2>
-              {userStore.userTickers &&
+              {userStore.userTickers && userStore.userTickers.length > 0 ? (
                 userStore.userTickers.map((ticket: Ticket, index: number) => {
                   return <TicketItem key={index} ticket={ticket} />;
-                })}
+                })
+              ) : (
+                <p className="no-ticket">
+                  You haven't bought any ticket yet
+                  <IonIcon icon={sadOutline}></IonIcon>
+                </p>
+              )}
             </div>
           )}
         </div>

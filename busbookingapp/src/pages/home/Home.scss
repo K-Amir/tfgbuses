@@ -102,3 +102,11 @@
     font-size: 15px;
   }
 }
+.date-picker input {
+  top: 0px;
+  opacity: 1;
+  height: 54px;
+  opacity: 0;
+  border: 1px solid green;
+  position: absolute;
+}

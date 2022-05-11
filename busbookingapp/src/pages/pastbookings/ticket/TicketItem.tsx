@@ -2,6 +2,7 @@ import { useState } from "react";
 import Ticket from "../../../models/Ticket";
 import Details from "../details/Details";
 import "./Ticket.scss";
+import moment from "moment";
 
 interface Props {
   ticket: Ticket;
@@ -12,6 +13,8 @@ const TicketItem = ({ ticket }: Props) => {
   const handleShowQr = () => {
     setShowDetails(true);
   };
+
+  const date = moment(new Date(ticket.date));
 
   if (showDetails) {
     return <Details ticket={ticket} setShowDetails={setShowDetails} />;
@@ -25,7 +28,10 @@ const TicketItem = ({ ticket }: Props) => {
             {ticket.hour} <br /> <br />
             {ticket.arrivalHour}
           </p>
-          <img src="./assets/icon/destinate.svg" alt="" />
+          <img
+            src="./assets/icon/destinate.svg"
+            alt="Indicate the length distance small"
+          />
           <p>
             {ticket.origin}
             <br />
@@ -34,7 +40,7 @@ const TicketItem = ({ ticket }: Props) => {
           </p>
         </div>
 
-        <span className="date">{ticket.date}</span>
+        <span className="date">{date.format("MMMM Do YY")}</span>
       </div>
       <div className="showqr">
         <div className="btn" onClick={handleShowQr}>

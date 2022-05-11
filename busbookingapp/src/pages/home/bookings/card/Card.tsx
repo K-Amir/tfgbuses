@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BusTravel } from "../../../../models/BusTravel";
 import { useStore } from "../../../../stores/store";
 import Checkout from "../checkout/Checkout";
+import moment from "moment";
 
 import "./Card.scss";
 
@@ -15,6 +16,8 @@ const Card = ({ bus }: Props) => {
   const { userStore } = useStore();
   const router = useIonRouter();
   const [showCheckout, setShowCheckout] = useState(false);
+
+  const date = moment(new Date(bus.date));
 
   const handlePurchase = async () => {
     if (userStore.userInfo === null) {
@@ -48,7 +51,7 @@ const Card = ({ bus }: Props) => {
         <div className="ticket-cut right"></div>
         <div className="distance">
           <IonIcon className="icon" icon={calendarOutline}></IonIcon>
-          {bus.date}
+          {date.format("MMMM Do YY")}
         </div>
         <div className="duration">
           <IonIcon className="icon" icon={timeOutline}></IonIcon>

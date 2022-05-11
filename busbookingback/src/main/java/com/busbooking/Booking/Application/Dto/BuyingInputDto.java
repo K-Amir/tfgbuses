@@ -12,4 +12,5 @@ public class BuyingInputDto {
     private String userEmail;
     private int amount; //cents
     private String id;
+
 }

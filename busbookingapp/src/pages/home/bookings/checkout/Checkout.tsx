@@ -1,4 +1,3 @@
-import React from "react";
 import "./Checkout.scss";
 
 import { loadStripe } from "@stripe/stripe-js";

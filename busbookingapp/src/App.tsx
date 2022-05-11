@@ -9,7 +9,6 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Home from "./pages/home/HomeRouting";
 import { bookmark, home, person } from "ionicons/icons";
 import "./App.scss";
 import { useStore } from "./stores/store";
@@ -45,7 +44,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     userStore.loadUser();
-  }, []);
+  }, [userStore]);
 
   return (
     <IonApp>

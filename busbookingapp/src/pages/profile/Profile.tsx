@@ -1,6 +1,6 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStore } from "../../stores/store";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
