@@ -1,8 +1,7 @@
-<div class="container-fluid vh-100 bg-white d-flex">
+<div class="vh-100 vw-100 bg-white d-flex">
   <div class="menu">
     <div class="menu_item" routerLinkActive="active" [routerLink]="'/buses'">
       <fa-icon [icon]="faBusSimple"></fa-icon>
-      <span>Buses</span>
     </div>
     <div
       class="menu_item"
@@ -10,18 +9,15 @@
       [routerLink]="'/incidences'"
     >
       <fa-icon [icon]="faWarning"></fa-icon>
-      <span>Incidences</span>
     </div>
     <div class="menu_item" routerLinkActive="active" [routerLink]="'/accounts'">
       <fa-icon [icon]="faUser"></fa-icon>
-      <span>Accounts</span>
     </div>
     <div class="menu_item" routerLinkActive="active" [routerLink]="'/history'">
       <fa-icon [icon]="faClock"></fa-icon>
-      <span>Bookings History</span>
     </div>
     <div *ngIf="isLoggedIn" class="menu_item logout" (click)="handleLogout()">
-      <span>Logout</span>
+      <fa-icon [icon]="faRightFromBracket"></fa-icon>
     </div>
   </div>
   <router-outlet class="outlet"> </router-outlet>

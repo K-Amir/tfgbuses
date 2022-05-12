@@ -5,6 +5,7 @@ import {
   faWarning,
   faUser,
   faClock,
+  faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -15,10 +16,13 @@ import {
 export class AppComponent implements OnInit {
   public isMenuCollapsed = false;
   public isLoggedIn!: boolean | null;
+
   faBusSimple = faBusSimple;
   faWarning = faWarning;
   faUser = faUser;
   faClock = faClock;
+  faRightFromBracket = faRightFromBracket;
+
   constructor(private accountService: AccountService) {}
 
   handleLogout() {

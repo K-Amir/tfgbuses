@@ -11,3 +11,26 @@
   padding: 0;
   box-sizing: border-box;
 }
+.display {
+  margin-top: 20px;
+  border: 2px solid rgb(224, 221, 221);
+  border-radius: 10px;
+  width: 80vw;
+
+  .custom_table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    th,
+    td {
+      padding: 10px 20px;
+      color: rgb(73, 72, 72);
+    }
+
+    thead tr {
+      padding: 10px;
+      background: rgb(233, 233, 233);
+      width: 100%;
+    }
+  }
+}

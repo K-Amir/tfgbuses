@@ -1,0 +1,27 @@
+<div class="form_modal">
+  <h3>{{ modalTitle }}</h3>
+  <div class="close_modal" (click)="closeModal()">
+    <fa-icon [icon]="faX"></fa-icon>
+  </div>
+
+  <form class="forms">
+    <div class="labels">
+      <label *ngFor="let label of labels">{{ label }}</label>
+    </div>
+    <div class="inputs">
+      <div class="input_modal">
+        <input type="text" />
+      </div>
+      <input type="text" />
+      <input type="text" />
+      <input type="text" />
+      <input type="text" />
+      <input type="text" />
+      <input type="text" />
+    </div>
+  </form>
+  <div class="bottom_modal">
+    <div class="btn_cancel" (click)="closeModal()">Cancel</div>
+    <div class="btn_add">Add Bus</div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+.form_modal {
+  position: absolute;
+  height: max-content;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 40vw;
+  border-radius: 15px;
+  padding-top: 25px;
+  max-width: 900px;
+  min-width: 500px;
+
+  background: white;
+  box-shadow: 0px 0px 120px rgba(0, 0, 0, 0.2);
+  h3 {
+    padding: 0px 25px;
+    margin-bottom: 20px;
+  }
+  .close_modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgb(245, 243, 243);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    transition: all 0.3s ease-out;
+    &:hover {
+      cursor: pointer;
+      color: white;
+      background: rgb(250, 68, 68);
+    }
+  }
+  .forms {
+    display: flex;
+    gap: 20px;
+  }
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+    margin-right: 25px;
+    font-size: 16px;
+    input {
+      border: 1px solid #e7e7e7;
+      padding: 10px 12px;
+      outline: none;
+      border-radius: 10px;
+      width: 100%;
+      transition: all 0.3s ease-out;
+    }
+    flex: 2.8;
+  }
+
+  .input_modal {
+    position: relative;
+    .error_modal {
+      background: white;
+      left: 16px;
+      color: rgb(255, 79, 79);
+      padding: 0px 5px;
+      font-size: 14px;
+      position: absolute;
+      top: -10px;
+    }
+  }
+  .input_modal.error {
+    input {
+      border: 1px solid rgb(255, 79, 79);
+    }
+  }
+
+  .labels {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 16px;
+    padding: 0px 25px;
+    color: rgb(75, 75, 75);
+    label {
+      padding: 10px 0px;
+    }
+    margin-bottom: 20px;
+  }
+  .bottom_modal {
+    background: #f4f4f7;
+    padding: 20px 25px;
+
+    display: flex;
+    justify-content: space-between;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    .btn_cancel {
+      padding: 5px 20px;
+      color: rgb(102, 101, 101);
+      border: 1px solid rgb(148, 148, 148);
+      border-radius: 5px;
+      transition: all 0.3s ease-out;
+      &:hover {
+        color: #f4f4f7;
+        background: rgb(148, 148, 148);
+        cursor: pointer;
+      }
+    }
+    .btn_add {
+      padding: 5px 20px;
+      border-radius: 5px;
+      color: white;
+      background: #596aca;
+      transition: all 0.3s;
+
+      &:hover {
+        cursor: pointer;
+        background: #3e4a8f;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
-  NgbDate,
   NgbDateParserFormatter,
   NgbDateStruct,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -41,7 +41,7 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
   ],
 })
 export class BusesComponent implements OnInit {
-  public showForm: boolean = false;
+  showAddModal: boolean = false;
   model!: NgbDateStruct;
   origin!: string;
   destination!: string;
@@ -50,9 +50,25 @@ export class BusesComponent implements OnInit {
   price!: string;
   available_seats!: string;
 
+  faPlus = faPlus;
+
   buses!: any;
 
+  labels: string[] = [
+    'Origin',
+    'Destination',
+    'Date',
+    'Depart hour',
+    'Arrival hour',
+    'Price',
+    'Available seats',
+  ];
+
   constructor(private busService: BusService) {}
+
+  handleCloseModal() {
+    this.showAddModal = false;
+  }
 
   handleFormSubmit() {
     this.busService
@@ -73,7 +89,7 @@ export class BusesComponent implements OnInit {
           this.loadAllBuses();
         },
       });
-    this.showForm = false;
+    this.showAddModal = false;
   }
 
   ngOnInit(): void {
