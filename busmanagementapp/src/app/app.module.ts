@@ -7,7 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -17,7 +18,6 @@ import { FormsModule } from '@angular/forms';
     NgbModule,
     HttpClientModule,
     FontAwesomeModule,
-    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

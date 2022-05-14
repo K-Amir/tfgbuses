@@ -5,16 +5,16 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class BusService {
+export class IncidencesService {
   baseUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  addBus(bus: any) {
+  addIncidence(incidence: any) {
     return this.http.post(
-      `${this.baseUrl}empresa/v0/buses`,
+      `${this.baseUrl}empresa/v0/incidences`,
       {
-        ...bus,
+        ...incidence,
       },
       {
         headers: {
@@ -24,15 +24,8 @@ export class BusService {
     );
   }
 
-  getAllBuses() {
-    return this.http.get(`${this.baseUrl}empresa/v0/buses`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      },
-    });
-  }
-  deleteBusById(id: string) {
-    return this.http.delete(`${this.baseUrl}empresa/v0/buses/${id}`, {
+  getAllIncidences() {
+    return this.http.get(`${this.baseUrl}empresa/v0/incidences`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },

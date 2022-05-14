@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("empresa/v0/auth")
@@ -59,8 +61,14 @@ public record AuthController(
         return SuccessDto.send("User created successfully");
     }
 
+    @DeleteMapping("{email}")
+    public ResponseEntity<SuccessDto> deleteUserByEmail(@PathVariable String email) {
+        this.authService.deleteByEmail(email);
+        return SuccessDto.send("Use deleted successfully");
+    }
+
     @PostMapping("app")
-    public ResponseEntity<?> registerNewAppUser(@RequestBody @Valid AppUserInputDto appUserInputDto){
+    public ResponseEntity<?> registerNewAppUser(@RequestBody @Valid AppUserInputDto appUserInputDto) {
         UsersEntity user = UsersMapper.MAP.appUserInputToUserEntity(appUserInputDto);
 
         user.setAdmin(false);
@@ -73,9 +81,21 @@ public record AuthController(
     }
 
 
+    @GetMapping("admin")
+    public ResponseEntity<?> getAllUsers() {
+        var admins = authService.getAllAdmins();
+
+        List<AppUserOutputDto> output = new ArrayList<>();
+
+        admins.forEach(x -> output.add(UsersMapper.MAP.userEntityToAppUserOutputDto(x)));
+
+        return ResponseEntity.ok(output);
+    }
+
+
     @GetMapping("token/{token}")
     public ResponseEntity<?> getUserByToken(@PathVariable String token) {
-        String subject =  jwtUtil.getSubject(token);
+        String subject = jwtUtil.getSubject(token);
 
         UsersEntity user = authService.getByEmail(subject);
 

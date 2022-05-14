@@ -1,1 +1,73 @@
-<p>indidences works!</p>
+<div class="custom_container">
+  <div class="title">
+    <h3>Incidences</h3>
+    <div class="add_btn" (click)="showAddModal = !showAddModal">
+      <fa-icon [icon]="faPlus"></fa-icon> Add a new incidence
+    </div>
+  </div>
+
+  <app-formmodal
+    *ngIf="showAddModal"
+    modalTitle="Add a new Incidence"
+    (handleCloseModal)="handleCloseModal()"
+    [labels]="labels"
+  >
+    <form (ngSubmit)="handleFormSubmit()" [formGroup]="formGroup">
+      <div class="input_modal" [ngClass]="showErrorBorder('reason')">
+        <div
+          class="error_modal"
+          *ngIf="
+            formGroup.get('reason')?.errors && formGroup.get('reason')?.touched
+          "
+        >
+          Reason is required
+        </div>
+        <input formControlName="reason" type="text" />
+      </div>
+
+      <div class="input_modal" [ngClass]="showErrorBorder('bus_id')">
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('bus_id')?.touched && formGroup.get('bus_id')?.errors?.['pattern']"
+        >
+          Please provide a valid number for the Id
+        </div>
+
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('bus_id')?.touched && formGroup.get('bus_id')?.errors?.['required']"
+        >
+          Bus Id is required
+        </div>
+
+        <input formControlName="bus_id" type="text" />
+      </div>
+      <input
+        class="modal_btn_add"
+        type="submit"
+        [classList]="loading ? 'loading modal_btn_add' : 'modal_btn_add'"
+        [disabled]="loading"
+        [value]="loading ? 'Adding incidence...' : 'Add incidence'"
+      />
+    </form>
+  </app-formmodal>
+
+  <div class="display">
+    <table class="custom_table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Reason</th>
+          <th scope="col">Bus Id</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let incidence of incidences">
+          <td>{{ incidence.id }}</td>
+          <td>{{ incidence.reason }}</td>
+          <td>{{ incidence.busId }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

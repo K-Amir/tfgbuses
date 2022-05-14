@@ -18,4 +18,6 @@ public interface BookingService {
 
     List<BookingEntity> findBookingEntitiesByBusEntity_Id(int busId);
 
+    void deleteBookingsByBusEntityId(int busId);
+
 }

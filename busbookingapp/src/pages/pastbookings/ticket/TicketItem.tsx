@@ -14,7 +14,9 @@ const TicketItem = ({ ticket }: Props) => {
     setShowDetails(true);
   };
 
-  const date = moment(new Date(ticket.date));
+  const [day, month, year] = ticket.date.split("-");
+  const dateJs = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  const date = moment(dateJs);
 
   if (showDetails) {
     return <Details ticket={ticket} setShowDetails={setShowDetails} />;

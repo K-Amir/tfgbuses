@@ -10,7 +10,10 @@ interface Props {
 }
 
 const Details = ({ setShowDetails, ticket }: Props) => {
-  const date = moment(new Date(ticket.date));
+  const [day, month, year] = ticket.date.split("-");
+  const dateJs = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+  const date = moment(dateJs);
 
   const { userStore } = useStore();
 
@@ -35,7 +38,6 @@ const Details = ({ setShowDetails, ticket }: Props) => {
         <div className="date">
           <p>Date :</p>
           <span>{date.format("MMMM Do YYYY")}</span>
-          <div className="seat">Seat 01</div>
         </div>
         <div className="passenger">
           <p>Passenger :</p>

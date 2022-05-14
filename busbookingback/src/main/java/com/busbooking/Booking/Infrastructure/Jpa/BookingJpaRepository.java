@@ -11,5 +11,7 @@ public interface BookingJpaRepository extends JpaRepository<BookingEntity, Integ
 
     List<BookingEntity> findBookingEntitiesByUsersEntity_Email(String email);
 
+    void deleteBookingEntitiesByBusEntity_Id(Integer busEntity_id);
+
 
 }

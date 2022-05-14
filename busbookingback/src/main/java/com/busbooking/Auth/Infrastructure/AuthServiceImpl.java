@@ -6,6 +6,7 @@ import com.busbooking.Auth.Infrastructure.Jpa.UserJpaRepo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public record AuthServiceImpl(UserJpaRepo userRepo) implements AuthService {
@@ -23,6 +24,16 @@ public record AuthServiceImpl(UserJpaRepo userRepo) implements AuthService {
     @Override
     public UsersEntity getByEmail(String email) {
         return userRepo.findById(email).orElseThrow(() -> new EntityNotFoundException("Not found user with the provided email"));
+    }
+
+    @Override
+    public List<UsersEntity> getAllAdmins() {
+        return userRepo.findAllByIsAdminIsTrue();
+    }
+
+    @Override
+    public void deleteUser(String email) {
+        userRepo.deleteByEmailIs(email);
     }
 
 

@@ -7,23 +7,38 @@ import com.busbooking.Bus.Domain.BusEntity;
 import com.busbooking.Bus.Domain.BusMapper;
 import com.busbooking.Bus.Domain.BusService;
 import com.busbooking.ErrorHandling.SuccessDto;
+import com.busbooking.Incidence.Domain.IncidenceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("empresa/v0/buses")
-public record BusController(BusService busService) {
+public record BusController(BusService busService, IncidenceService incidenceService) {
 
 
     @GetMapping("/available")
     public ResponseEntity<?> findAvailableBuses(@RequestParam HashMap<String, Object> params) {
+
         List<BusEntity> busEntityList = busService.getAvailableBookings(params);
-        List<BusOutputDto> busOutputDtoList = BusMapper.MAP.inputListToOutput(busEntityList);
+
+        var busesWithoutIncidences = getBusesWithoutIncidences(busEntityList);
+
+        List<BusOutputDto> busOutputDtoList = BusMapper.MAP.inputListToOutput(busesWithoutIncidences);
+
         return ResponseEntity.ok(busOutputDtoList);
+    }
+
+    private List<BusEntity> getBusesWithoutIncidences(List<BusEntity> busEntityList) {
+        var incidences =  incidenceService.findAll();
+        ArrayList<Integer> incidencesBusIds = new ArrayList<>();
+        incidences.forEach(x -> incidencesBusIds.add(x.getBusEntity().getId()));
+       return busEntityList.stream().filter(x -> !incidencesBusIds.contains(x.getId())).collect(Collectors.toList());
     }
 
     @PostMapping()

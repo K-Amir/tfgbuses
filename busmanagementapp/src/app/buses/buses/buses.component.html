@@ -11,102 +11,134 @@
     modalTitle="Add a new Bus"
     (handleCloseModal)="handleCloseModal()"
     [labels]="labels"
-  ></app-formmodal>
-
-  <div *ngIf="false" class="form">
-    <form (ngSubmit)="handleFormSubmit()">
-      <div class="form-floating mb-3">
-        <input
-          type="origin"
-          class="form-control"
-          id="origin"
-          name="origin"
-          [(ngModel)]="origin"
-          placeholder="EX: Madrid"
-        />
-        <label for="origin">Origin</label>
+  >
+    <form (ngSubmit)="handleFormSubmit()" [formGroup]="formGroup">
+      <div class="input_modal" [ngClass]="showErrorBorder('origin')">
+        <div
+          class="error_modal"
+          *ngIf="
+            formGroup.get('origin')?.errors && formGroup.get('origin')?.touched
+          "
+        >
+          Origin is required
+        </div>
+        <input formControlName="origin" type="text" />
       </div>
-      <div class="form-floating">
+
+      <div class="input_modal" [ngClass]="showErrorBorder('destination')">
+        <div
+          class="error_modal"
+          *ngIf="
+            formGroup.get('destination')?.errors &&
+            formGroup.get('destination')?.touched
+          "
+        >
+          Destination is required
+        </div>
+        <input type="text" formControlName="destination" />
+      </div>
+
+      <div class="input_modal" [ngClass]="showErrorBorder('date')">
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('date')?.touched && formGroup.get('date')?.errors?.['ngbDate']"
+        >
+          Date does not match pattern, Ex: '12-06-2010'
+        </div>
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('date')?.touched && formGroup.get('date')?.errors?.['required']"
+        >
+          Date is required
+        </div>
+
         <input
           type="text"
-          name="destination"
-          class="form-control"
-          id="destination"
-          [(ngModel)]="destination"
-          placeholder="destination"
-        />
-        <label for="destination">Destination</label>
-      </div>
-
-      <div class="form-floating mt-3">
-        <input
-          class="form-control"
-          placeholder="dd/mm/yyyy"
-          id="date"
-          name="date"
-          [(ngModel)]="model"
+          formControlName="date"
+          #date="ngbDatepicker"
           ngbDatepicker
-          #d="ngbDatepicker"
         />
+
         <button
-          class="btn btn-outline-secondary calendar date_picker"
-          (click)="d.toggle()"
+          class="btn btn-outline-secondary calendar_picker"
+          (click)="date.toggle()"
           type="button"
-        ></button>
-        <label for="date">Date</label>
+        >
+          <fa-icon [icon]="faCalendar"></fa-icon>
+        </button>
       </div>
 
-      <div class="form-floating mt-3">
-        <input
-          name="hour"
-          [(ngModel)]="hour"
-          type="text"
-          class="form-control"
-          id="hour"
-          placeholder="hour"
-        />
-        <label for="hour">Hour</label>
+      <div class="input_modal" [ngClass]="showErrorBorder('hour')">
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('hour')?.touched && formGroup.get('hour')?.errors?.['pattern']"
+        >
+          Hour does not match a valid pattern, Ex: '16:30'
+        </div>
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('hour')?.touched && formGroup.get('hour')?.errors?.['required']"
+        >
+          Hour is required
+        </div>
+        <input type="text" formControlName="hour" />
       </div>
 
-      <div class="form-floating mt-3">
-        <input
-          name="arrival_hour"
-          type="text"
-          class="form-control"
-          id="arrival_hour"
-          placeholder="arrival_hour"
-          [(ngModel)]="arrival_hour"
-        />
-        <label for="arrival_hour">Arrival Hour</label>
+      <div class="input_modal" [ngClass]="showErrorBorder('arrivalHour')">
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('arrivalHour')?.touched && formGroup.get('arrivalHour')?.errors?.['pattern']"
+        >
+          Hour does not match a valid pattern, Ex: '16:30'
+        </div>
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('arrivalHour')?.touched && formGroup.get('arrivalHour')?.errors?.['required']"
+        >
+          Hour is required
+        </div>
+        <input type="text" formControlName="arrivalHour" />
       </div>
 
-      <div class="form-floating mt-3">
-        <input
-          name="price"
-          type="text"
-          class="form-control"
-          id="price"
-          placeholder="price"
-          [(ngModel)]="price"
-        />
-        <label for="price">Price</label>
+      <div class="input_modal" [ngClass]="showErrorBorder('price')">
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('price')?.touched && formGroup.get('price')?.errors?.['pattern']"
+        >
+          Price does not match a valid pattern, Ex: '4.99'
+        </div>
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('price')?.touched && formGroup.get('price')?.errors?.['required']"
+        >
+          Price is required
+        </div>
+        <input type="text" formControlName="price" />
       </div>
 
-      <div class="form-floating mt-3">
-        <input
-          name="available_seats"
-          type="text"
-          class="form-control"
-          id="available_seats"
-          placeholder="available_seats"
-          [(ngModel)]="available_seats"
-        />
-        <label for="available_seats">Total Seats</label>
+      <div class="input_modal" [ngClass]="showErrorBorder('availableSeats')">
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('availableSeats')?.touched && formGroup.get('availableSeats')?.errors?.['pattern']"
+        >
+          Available seats does not match a valid pattern, Ex: '45'
+        </div>
+        <div
+          class="error_modal"
+          *ngIf="formGroup.get('availableSeats')?.touched && formGroup.get('availableSeats')?.errors?.['required']"
+        >
+          Available seats is required
+        </div>
+        <input type="text" formControlName="availableSeats" />
       </div>
 
-      <input class="btn btn-primary mt-3" type="submit" value="Add" />
+      <input
+        [classList]="loading ? 'modal_btn_add loading' : 'modal_btn_add'"
+        type="submit"
+        [value]="loading ? 'Adding bus...' : 'Add Bus'"
+      />
     </form>
-  </div>
+  </app-formmodal>
 
   <div class="display">
     <table class="custom_table">

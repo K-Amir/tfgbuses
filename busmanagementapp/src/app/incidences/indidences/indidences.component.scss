@@ -1,0 +1,26 @@
+.custom_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .add_btn {
+    background: #596aca;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    gap: 5px;
+    &:hover {
+      cursor: pointer;
+      background: #3e4a8f;
+    }
+  }
+}

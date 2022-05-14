@@ -18,11 +18,14 @@ const Profile = () => {
         <IonContent color="light" fullscreen>
           {userStore.userInfo && (
             <div className="container">
-              <h4>
-                Welcome, back {userStore.userInfo.name}{" "}
-                {userStore.userInfo.surname}
-              </h4>
-
+              <h4>Welcome, back {userStore.userInfo.name} </h4>
+              <p>Start booking now with BusBooking !</p>
+              <img
+                src="./assets/profile.svg"
+                alt="Bus from busbooking app"
+              />{" "}
+              <br />
+              <br />
               <div className="btn-logout" onClick={userStore.logout}>
                 Log out
               </div>

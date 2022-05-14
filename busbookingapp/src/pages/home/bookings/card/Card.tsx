@@ -17,7 +17,10 @@ const Card = ({ bus }: Props) => {
   const router = useIonRouter();
   const [showCheckout, setShowCheckout] = useState(false);
 
-  const date = moment(new Date(bus.date));
+  const [day, month, year] = bus.date.split("-");
+
+  const dateJs = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  const date = moment(dateJs);
 
   const handlePurchase = async () => {
     if (userStore.userInfo === null) {

@@ -30,12 +30,41 @@ export class AccountService {
       );
   }
 
+  getAllAdmins() {
+    return this.http.get(`${this.baseUrl}empresa/v0/auth/admin`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    });
+  }
+
+  deleteByEmail(email: string) {
+    return this.http.delete(`${this.baseUrl}empresa/v0/auth/${email}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    });
+  }
+
+  addNewAdmin(appUserInput: any) {
+    return this.http.post(
+      `${this.baseUrl}empresa/v0/auth`,
+      {
+        ...appUserInput,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        },
+      }
+    );
+  }
+
   loaduserfromjwt() {
     let jwt: string | null = localStorage.getItem('jwt');
     if (jwt) {
       return this.http.get(`${this.baseUrl}empresa/v0/auth/token/${jwt}`).pipe(
         map((val) => {
-          console.log(val);
           this.userSubject$.next(true);
         })
       );

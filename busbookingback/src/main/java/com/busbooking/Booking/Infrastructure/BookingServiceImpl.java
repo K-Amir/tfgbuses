@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
             throw new BusIncidenceExpcetion("Bus has an incidence:  " + incidence.getReason());
         }
 
-        //TODO: Safe path, no incidences, and seats available
+
 
         // We charge the user
 
@@ -96,6 +96,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingEntity> findBookingEntitiesByBusEntity_Id(int busId) {
         return bookingRepo.findBookingEntitiesByBusEntity_Id(busId);
+    }
+
+    @Override
+    public void deleteBookingsByBusEntityId(int busId) {
+        this.bookingRepo.deleteBookingEntitiesByBusEntity_Id(busId);
     }
 
 

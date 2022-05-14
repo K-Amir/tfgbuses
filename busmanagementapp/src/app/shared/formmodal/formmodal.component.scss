@@ -40,41 +40,6 @@
     display: flex;
     gap: 20px;
   }
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    width: 100%;
-    margin-right: 25px;
-    font-size: 16px;
-    input {
-      border: 1px solid #e7e7e7;
-      padding: 10px 12px;
-      outline: none;
-      border-radius: 10px;
-      width: 100%;
-      transition: all 0.3s ease-out;
-    }
-    flex: 2.8;
-  }
-
-  .input_modal {
-    position: relative;
-    .error_modal {
-      background: white;
-      left: 16px;
-      color: rgb(255, 79, 79);
-      padding: 0px 5px;
-      font-size: 14px;
-      position: absolute;
-      top: -10px;
-    }
-  }
-  .input_modal.error {
-    input {
-      border: 1px solid rgb(255, 79, 79);
-    }
-  }
 
   .labels {
     flex: 1;
@@ -89,6 +54,7 @@
     }
     margin-bottom: 20px;
   }
+
   .bottom_modal {
     background: #f4f4f7;
     padding: 20px 25px;
@@ -107,18 +73,6 @@
         color: #f4f4f7;
         background: rgb(148, 148, 148);
         cursor: pointer;
-      }
-    }
-    .btn_add {
-      padding: 5px 20px;
-      border-radius: 5px;
-      color: white;
-      background: #596aca;
-      transition: all 0.3s;
-
-      &:hover {
-        cursor: pointer;
-        background: #3e4a8f;
       }
     }
   }

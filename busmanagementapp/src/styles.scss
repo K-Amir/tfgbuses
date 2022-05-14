@@ -34,3 +34,74 @@
     }
   }
 }
+.inputs form,
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  margin-right: 25px;
+  font-size: 16px;
+  input {
+    border: 1px solid #e7e7e7;
+    padding: 10px 12px;
+    outline: none;
+    border-radius: 10px;
+    width: 100%;
+    transition: all 0.3s ease-out;
+  }
+
+  flex: 2.8;
+}
+.input_modal {
+  position: relative;
+
+  .calendar_picker {
+    outline: none;
+    border: 1px solid #e7e7e7;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .error_modal {
+    background: white;
+    left: 16px;
+    color: rgb(255, 79, 79);
+    padding: 0px 5px;
+    font-size: 14px;
+    position: absolute;
+    top: -10px;
+  }
+}
+.input_modal.error {
+  input {
+    border: 1px solid rgb(255, 79, 79);
+  }
+}
+
+.modal_btn_add {
+  padding: 6px 20px !important;
+  border-radius: 5px !important;
+  position: absolute;
+  color: white;
+  background: #596aca;
+  transition: all 0.3s;
+  width: max-content !important;
+  right: 25px;
+  bottom: 20px;
+  &:hover {
+    cursor: pointer;
+    background: #3e4a8f;
+  }
+}
+
+.modal_btn_add.loading {
+  cursor: not-allowed;
+}

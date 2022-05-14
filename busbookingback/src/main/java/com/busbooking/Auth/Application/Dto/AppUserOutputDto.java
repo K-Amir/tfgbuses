@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 public class AppUserOutputDto {
+
+
     private String email;
     private String name;
     private String surname;

@@ -1,5 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faCalendar, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbDateParserFormatter,
   NgbDateStruct,
@@ -14,9 +15,9 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
     if (value) {
       const date = value.split(this.DELIMITER);
       return {
-        day: parseInt(date[0], 10),
-        month: parseInt(date[1], 10),
-        year: parseInt(date[2], 10),
+        day: parseInt(date[0]),
+        month: parseInt(date[1]),
+        year: parseInt(date[2]),
       };
     }
     return null;
@@ -24,7 +25,11 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 
   format(date: NgbDateStruct | null): string {
     return date
-      ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year
+      ? (date.day < 10 ? '0' + date.day : date.day) +
+          this.DELIMITER +
+          (date.month < 10 ? '0' + date.month : date.month) +
+          this.DELIMITER +
+          date.year
       : '';
   }
 }
@@ -41,19 +46,46 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
   ],
 })
 export class BusesComponent implements OnInit {
-  showAddModal: boolean = false;
-  model!: NgbDateStruct;
-  origin!: string;
-  destination!: string;
-  hour!: string;
-  arrival_hour!: string;
-  price!: string;
-  available_seats!: string;
-
+  // faIcons
   faPlus = faPlus;
+  faCalendar = faCalendar;
 
+  // toggles
+  showAddModal: boolean = false;
+  loading: boolean = false;
+
+  // forms
+  model!: NgbDateStruct;
+
+  // price!: string;
+  // available_seats!: string;
+
+  formGroup: FormGroup = new FormGroup({
+    origin: new FormControl('', [Validators.required]),
+    destination: new FormControl('', [Validators.required]),
+    hour: new FormControl('', [
+      Validators.required,
+      Validators.pattern('([0-1][0-9]|2[0-3]):[0-5][0-9]'),
+    ]),
+    date: new FormControl('', [Validators.required]),
+    arrivalHour: new FormControl('', [
+      Validators.required,
+      Validators.pattern('([0-1][0-9]|2[0-3]):[0-5][0-9]'),
+    ]),
+    price: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[0-9]{0,8}(\\.[0-9]{1,2})?$'),
+    ]),
+    availableSeats: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^([1-9]|[1-9][0-9]|[1][0-9][0-9]|20[0-0])$'),
+    ]),
+  });
+
+  // busesArray
   buses!: any;
 
+  // formLabels
   labels: string[] = [
     'Origin',
     'Destination',
@@ -71,25 +103,33 @@ export class BusesComponent implements OnInit {
   }
 
   handleFormSubmit() {
+    this.formGroup.markAllAsTouched();
+
+    if (this.formGroup.invalid) return;
+    this.loading = true;
+
     this.busService
       .addBus({
-        hour: this.hour,
-        origin: this.origin,
-        date: `${this.model.day}-${this.model.month}-${this.model.year}`,
-        arrivalHour: this.arrival_hour,
-        price: this.price,
-        destination: this.destination,
-        availableSeats: this.available_seats,
+        ...this.formGroup.value,
+        origin: this.capitalizeFirstLetter(this.formGroup.get('origin')?.value),
+        date: `${this.formGroup.get('date')?.value.day}-${
+          this.formGroup.get('date')?.value.month
+        }-${this.formGroup.get('date')?.value.year}`,
+        destination: this.capitalizeFirstLetter(
+          this.formGroup.get('destination')?.value
+        ),
       })
       .subscribe({
-        next: (v) => {
-          console.log(v);
-        },
         complete: () => {
           this.loadAllBuses();
+          this.loading = false;
+          this.showAddModal = false;
+        },
+        error: () => {
+          this.loading = false;
+          this.showAddModal = false;
         },
       });
-    this.showAddModal = false;
   }
 
   ngOnInit(): void {
@@ -108,8 +148,19 @@ export class BusesComponent implements OnInit {
     this.busService.getAllBuses().subscribe({
       next: (v: any) => {
         this.buses = v;
-        console.log(v);
       },
     });
+  }
+
+  showErrorBorder(control: string) {
+    return this.formGroup.get(control)?.errors &&
+      this.formGroup.get(control)?.touched
+      ? 'error'
+      : '';
+  }
+
+  private capitalizeFirstLetter(text: string) {
+    text = text.toLocaleLowerCase();
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 }

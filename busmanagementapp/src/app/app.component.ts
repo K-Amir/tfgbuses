@@ -7,6 +7,7 @@ import {
   faClock,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -23,14 +24,18 @@ export class AppComponent implements OnInit {
   faClock = faClock;
   faRightFromBracket = faRightFromBracket;
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService, private router: Router) {}
 
   handleLogout() {
     this.accountService.signout();
   }
 
   ngOnInit(): void {
-    this.accountService.loaduserfromjwt()?.subscribe();
+    this.accountService.loaduserfromjwt()?.subscribe({
+      error: () => {
+        this.router.navigateByUrl('account/login');
+      },
+    });
     this.accountService.userSubject$.subscribe({
       next: (v) => {
         this.isLoggedIn = v;

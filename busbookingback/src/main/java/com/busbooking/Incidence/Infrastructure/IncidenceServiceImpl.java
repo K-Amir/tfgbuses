@@ -1,5 +1,6 @@
 package com.busbooking.Incidence.Infrastructure;
 
+import com.busbooking.Booking.Domain.BookingService;
 import com.busbooking.Bus.Domain.BusEntity;
 import com.busbooking.Bus.Domain.BusService;
 import com.busbooking.Incidence.Domain.IncidenceEntity;
@@ -16,17 +17,23 @@ public record IncidenceServiceImpl(
         IncidenceJpaRepository incidenceRepo,
         BusService busService,
         MailService mailService
+
 ) implements IncidenceService {
     @Override
     public void save(IncidenceEntity incidenceEntity, int busId) {
 
         BusEntity busEntity = busService().findBusById(busId);
 
+        var incidence = incidenceRepo.findIncidenceByBusEntity_Id(busId);
+        if (incidence != null) {
+            throw  new EntityNotFoundException("Can not add another incidence to the same busId");
+        };
+
         incidenceEntity.setBusEntity(busEntity);
+
 
         incidenceRepo.save(incidenceEntity);
     }
-
 
 
     @Override
