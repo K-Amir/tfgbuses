@@ -11,22 +11,26 @@ interface Filters {
 export default class BookingsStore {
   availableBookings: BusTravel[] = [];
   filters!: Filters;
+  isLoading: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   loadAvailableBuses = async (dateToSearch: Filters) => {
+    this.isLoading = true;
     this.availableBookings = [];
     this.setFilters(dateToSearch);
     const availableBookingsServer = await axios.get(
-      "http://localhost:8080/empresa/v0/buses/available",
+      "https://springbackbustravel.herokuapp.com/empresa/v0/buses/available",
       {
         params: {
           ...this.filters,
         },
       }
     );
+
+    this.isLoading = false;
 
     if (!availableBookingsServer.data) return;
 

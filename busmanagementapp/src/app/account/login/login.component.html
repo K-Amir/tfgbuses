@@ -1,6 +1,7 @@
 <div class="container">
   <form (ngSubmit)="handleFormSubmit()">
     <p>Login using your credentials</p>
+    <p class="error">{{ error }}</p>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
       <input
@@ -23,6 +24,8 @@
       />
     </div>
 
-    <button type="submit" class="btn btn-primary">Log in</button>
+    <button [disabled]="isLoading" type="submit" class="btn btn-primary">
+      {{ isLoading ? "Login in..." : "Log in" }}
+    </button>
   </form>
 </div>

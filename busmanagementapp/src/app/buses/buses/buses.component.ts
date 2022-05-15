@@ -53,6 +53,9 @@ export class BusesComponent implements OnInit {
   // toggles
   showAddModal: boolean = false;
   loading: boolean = false;
+  deleting: boolean = false;
+  loadingBuses: boolean = true;
+  busIdDelete!: string;
 
   // forms
   model!: NgbDateStruct;
@@ -124,6 +127,7 @@ export class BusesComponent implements OnInit {
           this.loadAllBuses();
           this.loading = false;
           this.showAddModal = false;
+          this.formGroup.reset();
         },
         error: () => {
           this.loading = false;
@@ -137,17 +141,31 @@ export class BusesComponent implements OnInit {
   }
 
   handleDelete(id: string) {
+    this.busIdDelete = id;
+    this.deleting = true;
     this.busService.deleteBusById(id).subscribe({
       complete: () => {
         this.loadAllBuses();
+        this.deleting = false;
+      },
+      error: (e) => {
+        this.deleting = false;
       },
     });
   }
 
   loadAllBuses() {
+    this.buses = [];
+    this.loadingBuses = true;
     this.busService.getAllBuses().subscribe({
       next: (v: any) => {
         this.buses = v;
+      },
+      complete: () => {
+        this.loadingBuses = false;
+      },
+      error: () => {
+        this.loadingBuses = false;
       },
     });
   }

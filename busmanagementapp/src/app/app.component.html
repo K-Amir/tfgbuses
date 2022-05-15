@@ -13,9 +13,7 @@
     <div class="menu_item" routerLinkActive="active" [routerLink]="'/accounts'">
       <fa-icon [icon]="faUser"></fa-icon>
     </div>
-    <div class="menu_item" routerLinkActive="active" [routerLink]="'/history'">
-      <fa-icon [icon]="faClock"></fa-icon>
-    </div>
+
     <div *ngIf="isLoggedIn" class="menu_item logout" (click)="handleLogout()">
       <fa-icon [icon]="faRightFromBracket"></fa-icon>
     </div>

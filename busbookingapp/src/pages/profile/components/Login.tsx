@@ -24,8 +24,8 @@ const Login = ({ setToggleForms }: Props) => {
   const [showContent, setShowContent] = useState(false);
   const router = useIonRouter();
 
-  const handleLogin = (data: any) => {
-    userStore.loginUser(data.password, data.email);
+  const handleLogin = async (data: any) => {
+    await userStore.loginUser(data.password, data.email);
     if (userStore.userInfo !== null) {
       router.push("/bookings");
     } else {

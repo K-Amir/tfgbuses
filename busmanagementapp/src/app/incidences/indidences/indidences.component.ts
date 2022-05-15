@@ -20,6 +20,8 @@ export class IndidencesComponent implements OnInit {
     ]),
   });
 
+  loadingIncidences: boolean = true;
+
   loading: boolean = false;
 
   incidences!: any[];
@@ -57,9 +59,16 @@ export class IndidencesComponent implements OnInit {
   }
 
   loadAllIndidences() {
+    this.loadingIncidences = true;
     this.incidenceService.getAllIncidences().subscribe({
       next: (v: any) => {
         this.incidences = v;
+      },
+      complete: () => {
+        this.loadingIncidences = false;
+      },
+      error: () => {
+        this.loadingIncidences = false;
       },
     });
   }

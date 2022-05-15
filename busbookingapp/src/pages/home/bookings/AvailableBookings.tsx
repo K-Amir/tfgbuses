@@ -30,13 +30,14 @@ const Home: React.FC = () => {
           <div className="wrap"></div>
         </div>
 
-        {bookingStore.availableBookings.length > 0 ? (
+        {bookingStore.availableBookings.length > 0 && (
           <div className="available-bookings">
             {bookingStore.availableBookings.map((bus) => (
               <Card key={bus.id} bus={bus} />
             ))}
           </div>
-        ) : (
+        )}
+        {!bookingStore.isLoading && bookingStore.availableBookings.length <= 0 && (
           <div className="not-found">
             Sorry, no bookings found for the specified destination
             <IonIcon class="icon" icon={sadOutline}></IonIcon>

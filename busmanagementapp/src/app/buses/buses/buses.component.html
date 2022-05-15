@@ -135,6 +135,7 @@
       <input
         [classList]="loading ? 'modal_btn_add loading' : 'modal_btn_add'"
         type="submit"
+        [disabled]="loading"
         [value]="loading ? 'Adding bus...' : 'Add Bus'"
       />
     </form>
@@ -156,6 +157,16 @@
         </tr>
       </thead>
       <tbody>
+        <tr class="loadingtable" *ngIf="loadingBuses">
+          <td colspan="9">
+            <div class="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </td>
+        </tr>
         <tr *ngFor="let bus of buses">
           <td>{{ bus.id }}</td>
           <td>{{ bus.origin }}</td>
@@ -166,7 +177,17 @@
           <td>{{ bus.price }}€</td>
           <td>{{ bus.availableSeats }}</td>
           <td class="d-flex gap-2" (click)="handleDelete(bus.id)">
-            <div class="btn-danger btn">Delete</div>
+            <div
+              [ngClass]="
+                deleting && busIdDelete === bus.id
+                  ? 'btn-danger btn loading-div'
+                  : 'btn-danger btn'
+              "
+            >
+              {{
+                deleting && busIdDelete === bus.id ? "Deleting..." : "Delete"
+              }}
+            </div>
           </td>
         </tr>
       </tbody>

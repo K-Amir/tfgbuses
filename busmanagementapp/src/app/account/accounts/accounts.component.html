@@ -63,7 +63,12 @@
         <input formControlName="password" type="text" />
       </div>
 
-      <input class="modal_btn_add" type="submit" value="Add Administrator" />
+      <input
+        [classList]="addingUsers ? 'modal_btn_add loading' : 'modal_btn_add'"
+        type="submit"
+        [disabled]="addingUsers"
+        [value]="addingUsers ? 'Adding administrator...' : 'Add Administrator'"
+      />
     </form>
   </app-formmodal>
 
@@ -78,12 +83,34 @@
         </tr>
       </thead>
       <tbody>
+        <tr class="loadingtable" *ngIf="loadingUsers">
+          <td colspan="9">
+            <div class="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </td>
+        </tr>
         <tr *ngFor="let admin of admins">
           <td>{{ admin.email }}</td>
           <td>{{ admin.name }}</td>
           <td>{{ admin.surname }}</td>
           <td class="d-flex gap-2" (click)="handleDelete(admin.email)">
-            <div class="btn-danger btn">Delete</div>
+            <div
+              [ngClass]="
+                deleting && deletingEmail === admin.email
+                  ? 'btn-danger btn loading-div'
+                  : 'btn-danger btn'
+              "
+            >
+              {{
+                deleting && deletingEmail === admin.email
+                  ? "Deleting..."
+                  : "Delete"
+              }}
+            </div>
           </td>
         </tr>
       </tbody>

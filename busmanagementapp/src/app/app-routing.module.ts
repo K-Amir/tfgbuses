@@ -27,14 +27,7 @@ const routes: Routes = [
       import('./incidences/incidences.module').then((m) => m.IncidencesModule),
     canActivate: [AuthGuard],
   },
-  {
-    path: 'history',
-    loadChildren: () =>
-      import('./bookinghistory/bookinghistory.module').then(
-        (m) => m.BookinghistoryModule
-      ),
-    canActivate: [AuthGuard],
-  },
+
   {
     path: 'accounts',
     loadChildren: () =>

@@ -11,6 +11,10 @@ import { AccountService } from '../account.service';
 export class AccountsComponent implements OnInit {
   showAddModal: boolean = false;
   faPlus = faPlus;
+  loadingUsers: boolean = true;
+  addingUsers: boolean = false;
+  deleting: boolean = false;
+  deletingEmail!: string;
 
   labels: string[] = ['Name', 'Surname', 'Email', 'Password'];
   admins!: any;
@@ -33,9 +37,17 @@ export class AccountsComponent implements OnInit {
   }
 
   loadAllAdministrators() {
+    this.admins = [];
+    this.loadingUsers = true;
     this.accountService.getAllAdmins().subscribe({
       next: (v) => {
         this.admins = v;
+      },
+      complete: () => {
+        this.loadingUsers = false;
+      },
+      error: () => {
+        this.loadingUsers = false;
       },
     });
   }
@@ -43,6 +55,7 @@ export class AccountsComponent implements OnInit {
   handleFormSubmit() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.invalid) return;
+    this.addingUsers = true;
 
     this.accountService
       .addNewAdmin({
@@ -56,6 +69,10 @@ export class AccountsComponent implements OnInit {
         complete: () => {
           this.loadAllAdministrators();
           this.showAddModal = false;
+          this.addingUsers = false;
+        },
+        error: () => {
+          this.addingUsers = false;
         },
       });
   }
@@ -68,10 +85,15 @@ export class AccountsComponent implements OnInit {
   }
 
   handleDelete(email: string) {
-    console.log(email);
+    this.deletingEmail = email;
+    this.deleting = true;
     this.accountService.deleteByEmail(email).subscribe({
       complete: () => {
         this.loadAllAdministrators();
+        this.deleting = false;
+      },
+      error: () => {
+        this.deleting = false;
       },
     });
   }

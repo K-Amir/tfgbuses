@@ -22,7 +22,9 @@ export default class UserStore {
 
     let res: AxiosResponse = await axios({
       method: "GET",
-      url: "http://localhost:8080/empresa/v0/auth/token/" + token,
+      url:
+        "https://springbackbustravel.herokuapp.com/empresa/v0/auth/token/" +
+        token,
     });
 
     if (res.status === 200) {
@@ -37,7 +39,7 @@ export default class UserStore {
     const jwt = localStorage.getItem("jwt");
     if (!jwt) return;
     const res = await axios.get(
-      `http://localhost:8080/empresa/v0/bookings/${jwt}`,
+      `https://springbackbustravel.herokuapp.com/empresa/v0/bookings/${jwt}`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -60,7 +62,7 @@ export default class UserStore {
   loginUser = async (password: string, email: string) => {
     const response: AxiosResponse = await axios({
       method: "GET",
-      url: "http://localhost:8080/empresa/v0/auth/token",
+      url: "https://springbackbustravel.herokuapp.com/empresa/v0/auth/token",
       headers: {
         user: email,
         password: password,

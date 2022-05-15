@@ -38,7 +38,7 @@ const PaymentForm = ({ setShowCheckout, bus }: Props) => {
       try {
         const { id } = paymentMethod;
         const response = await axios.post(
-          "http://localhost:8080/empresa/v0/bookings/buy",
+          "https://springbackbustravel.herokuapp.com/empresa/v0/bookings/buy",
           {
             amount: parseFloat(bus.price) * 100,
             id,

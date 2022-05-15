@@ -35,7 +35,7 @@ const Signup = ({ setToggleForms, setSuccessMessage }: Props) => {
     setSuccessMessage("");
     await axios({
       method: "POST",
-      url: "http://localhost:8080/empresa/v0/auth/app",
+      url: "https://springbackbustravel.herokuapp.com/empresa/v0/auth/app",
       data: {
         ...data,
       },
